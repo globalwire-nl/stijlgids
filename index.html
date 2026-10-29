@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Huisstijl van de DectDirect-winkel: merkboek, tokens, componenten en beeld.">
+<title>DectDirect stijlgids</title>
+<link rel="icon" href="assets/Logos/favicon.png">
+<link rel="stylesheet" href="fonts/barlow.css">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="site-logo" href="index.html" aria-label="DectDirect stijlgids">
+    <picture><source srcset="assets/Logos/logo-white.svg" media="(prefers-color-scheme: dark)"><img src="assets/Logos/logo.svg" alt="DectDirect" width="160" height="40"></picture>
+    <span>Stijlgids</span>
+  </a>
+  <nav class="site-nav"><a href="index.html">Merkboek</a><a href="tokens.html">Tokens</a><a href="beeld.html">Beeld</a><a href="index.html#componenten">Componenten</a></nav>
+</header>
+<main class="site-main">
+<h1>Stijlgids</h1>
+<p class="lead">De huisstijl van de DectDirect-winkel: het merkboek, de <a href="tokens.html">tokens</a>, het <a href="beeld.html">beeldmateriaal</a> en de <a href="#componenten">componenten</a>.</p>
+<nav class="toc" aria-labelledby="inhoud"><h2 id="inhoud">Inhoud</h2><ul><li><a href="#toon-en-tekst">Toon en tekst</a></li><li><a href="#kleur">Kleur</a></li><li><a href="#licht-en-donker">Licht en donker</a></li><li><a href="#typografie">Typografie</a></li><li><a href="#ruimte-vorm-en-schaduw">Ruimte, vorm en schaduw</a></li><li><a href="#beeld">Beeld</a></li><li><a href="#iconografie">Iconografie</a></li><li><a href="#logo">Logo</a></li><li><a href="#rails-paginas-winkelmand-afrekenen-account">Rails-pagina&#x27;s (winkelmand, afrekenen, account)</a></li><li><a href="#verschil-met-het-lightspeed-thema">Verschil met het Lightspeed-thema</a></li><li><a href="#bekende-contrastproblemen-bron-niet-aangepast">Bekende contrastproblemen (bron, niet aangepast)</a></li><li><a href="#niet-opgenomen">Niet opgenomen</a></li><li><a href="#componenten">Componenten</a></li></ul></nav>
+<article class="prose">
+<p>DectDirect is een webwinkel in telefonie, headsets, netwerk en de rest van de werkplek, voor bedrijven en particulieren in de Benelux. De winkel is helder en praktisch: wit met één diep violet, geel voor alles wat koopt, en veel productfoto&#x27;s op wit. Dit systeem beschrijft de nieuwe winkel (Next.js, live 8 december 2026) en de Rails-pagina&#x27;s die erbij horen (winkelmand, afrekenen, account).</p>
+<h2 id="toon-en-tekst">Toon en tekst</h2>
+<ul>
+<li>Schrijf in het Nederlands, met <strong>je</strong> en <strong>jouw</strong>, nooit u: &quot;Heb je vragen?&quot;, &quot;Hoe mogen we je aanspreken?&quot;, &quot;Alles voor jouw perfecte werkplek.&quot; (Een oude merktekst over Jabra gebruikt nog &quot;u&quot;; neem dat niet over.)</li>
+<li>Koppen zijn korte uitspraken die op een punt eindigen: &quot;Geliefd.&quot;, &quot;Speciaal voor jou.&quot;, &quot;Alleen de beste merken.&quot;, &quot;Op ons kun je rekenen.&quot;, &quot;Tweedekans, eerste keus.&quot; Een vraag mag: &quot;Vergeet je niet een van deze?&quot;, &quot;Niets missen?&quot;</li>
+<li>Maak in een belofte het ene woord dat telt <strong>bold</strong>: &quot;Verzending binnen EU en <strong>gratis</strong> binnen Benelux&quot;, &quot;Kopen <strong>op rekening</strong> voor de zakelijke markt&quot;, &quot;Altijd minimaal <strong>2 jaar garantie</strong>&quot;, &quot;Klantbeoordeling <strong>9.2/10</strong>&quot;.</li>
+<li>Uitroepteken alleen in de vaste USP-regel en de metatekst (&quot;Gratis verzending binnen de Benelux!&quot;). Geen emoji.</li>
+<li>Gewone zinshoofdletters, geen Title Case. Productnamen zoals de fabrikant ze schrijft (&quot;Jabra Evolve2 65 Flex UC Stereo&quot;).</li>
+<li>Voorraad en prijs feitelijk: &quot;Nog maar 3 op voorraad&quot;, &quot;Nog 2 voor deze prijs · meer leverbaar voor 189,95&quot;. Laatste voorraad is beschikbaarheid tegen een prijs, nooit &quot;korting&quot; of &quot;actie&quot;.</li>
+<li>Prijzen: incl. btw groot, excl. btw eronder. <code>189,95</code> zonder teken op tegels, <code>€ 189,95</code> in zinnen en totalen. Schrijf &quot;excl. btw&quot; (de tegels zeggen nog &quot;excl. BTW&quot;; de rest van de winkel kleine letters).</li>
+<li>Knoppen zeggen wat er gebeurt: &quot;Toevoegen aan winkelwagen&quot; (op een telefoon &quot;In winkelwagen&quot;), &quot;Afrekenen&quot;, &quot;Naar betaling&quot;, &quot;Aanmelden&quot;, &quot;Geef me een seintje&quot;.</li>
+</ul>
+<h2 id="kleur">Kleur</h2>
+<p>De winkel gebruikt het Tailwind v4-palet met vier eigen tokens. De namen hier zijn de CSS-variabelen van de storefront (<code>--color-brand</code> enz.), zodat code en systeem hetzelfde zeggen.</p>
+<ul>
+<li><strong>Pagina en vlakken.</strong> <code>color-page</code> onder alles, <code>color-surface</code> voor wat erop ligt (header, kaarten, menu&#x27;s). In licht zijn beide wit.</li>
+<li><strong>Tekst.</strong> Lopende tekst <code>color-neutral-800</code>; productnamen <code>color-neutral-700</code>; secundair (kruimelpad, voorraadregel, byline) <code>color-neutral-500</code>. Randen zonder kleur zijn <code>color-neutral-200</code>.</li>
+<li><strong>Violet, twee rollen.</strong> <code>color-brand</code> is het violet als <em>tekst of rand</em> (prijs op de productpagina, koppen in dialogen, hover-ring, zoekveld) en wordt in donker lichtviolet. <code>color-violet-900</code> is het violet als <em>vlak</em> (USP-balk, hero, badges, gekozen keuze) en blijft in beide thema&#x27;s gelijk; wit erop, iconen erop <code>color-yellow-500</code>. Zet nooit wit op <code>color-brand</code>.</li>
+<li><strong>Geel = kopen.</strong> <code>color-yellow-500</code> met label <code>color-violet-900</code> voor elke actie die iets koopt of verstuurt, en voor de infobalk. Hover <code>color-yellow-400</code>. In donkere banners begint de knop op <code>color-yellow-400</code> (hover <code>color-yellow-300</code>). Eén gele knop per blok.</li>
+<li><strong>Links.</strong> In de storefront <code>color-sky-500</code> (hover van footer-, menu- en kruimelpadlinks, &quot;Bekijk alle merken&quot;, paginering, links in artikelen). Op de Rails-pagina&#x27;s <code>shop-link</code>.</li>
+<li><strong>Status.</strong> Voorraad <code>color-green-500</code>, geen voorraad <code>color-rose-600</code>, fouten <code>color-red-700</code>/<code>color-red-500</code>, succes <code>color-green-700</code>. Status heeft altijd ook een woord of icoon, nooit alleen kleur.</li>
+<li><strong>Verlopen.</strong> Precies drie, alle uit de bron: de nieuwsbrief-band <code>color-violet-900</code> → <code>color-sky-500</code>; de donkere banners <code>color-slate-900</code> → <code>color-slate-600</code>; koptekst in een verloop op die banners (<code>color-green-500</code> → <code>color-lime-200</code> voor Tweedekans, <code>color-sky-500</code> → <code>color-violet-500</code> voor Xelion). Geen nieuwe verlopen.</li>
+<li><code>logo-*</code> en <code>icon-violet</code> zijn de kleuren die in de logo- en icoonbestanden staan; gebruik ze niet in UI-CSS.</li>
+</ul>
+<h2 id="licht-en-donker">Licht en donker</h2>
+<p>Licht is de standaard. Donker volgt de systeeminstelling, tenzij <code>&lt;html data-theme=&quot;light|dark&quot;&gt;</code> (de keuze uit de schakelaar in de footer, in localStorage <code>theme</code>). In donker krijgen <code>color-page</code>, <code>color-surface</code>, <code>color-brand</code>, <code>color-brand-tint</code> andere waarden en draait de grijsschaal om (<code>color-neutral-50</code> is dan het donkerst), zodat <code>color-neutral-700</code> gewoon blijft werken. Ook de getinte uiteinden van groen, rood, sky en geel (meldingen) draaien mee. Violet-vlakken en de gele knoppen blijven gelijk.</p>
+<p>Productfoto&#x27;s hebben een eigen witte achtergrond: het fotovlak van product- en merktegels en de blauwe categorietegel blijven licht in donker (<code>theme-light</code>). In donker wisselt het logo naar <code>logo-white.svg</code>, en de betaalmethode-logo&#x27;s krijgen samen een wit plaatje.</p>
+<h2 id="typografie">Typografie</h2>
+<p>Eén familie: <strong>Barlow</strong> (Google Fonts, gewichten 400, 500, 600, 700; de storefront host hem zelf via next/font, de Rails-pagina&#x27;s laden hem van bunny.net). Koppen en prijzen zijn bold (700); semibold (600) alleen voor labels en de footer-contactregels; medium (500) voor de voorraad-pil en zoekresultaten.</p>
+<ul>
+<li>Koppen: <code>hero</code> (48px) op de homepage, <code>page-title</code> (36px) voor artikelen, <code>heading-section</code> (30px) voor secties, <code>heading-banner</code> (24px) in banners en dialogen, <code>heading-card</code> (20px), <code>heading-small</code> (18px).</li>
+<li>Tekst: <code>body</code> 16px, <code>body-lg</code> 18px voor de korte productomschrijving, <code>small</code> 14px, <code>caption</code> 12px voor de USP-balk.</li>
+<li>Het hoofdmenu (<code>nav</code>) staat in hoofdletters op 13px met 0.05em spatiëring.</li>
+<li>Prijzen: <code>price-hero</code>, <code>price-tile</code>, <code>price-row</code> met <code>tabular-nums</code> in rijen en totalen, <code>price-excl</code> eronder.</li>
+</ul>
+<h2 id="ruimte-vorm-en-schaduw">Ruimte, vorm en schaduw</h2>
+<ul>
+<li>Raster van 4px (Tailwind-stappen; <code>spacing-4</code> = 16px). Inhoud tot <code>container-max</code> (1280px) met <code>spacing-4</code> marge, vanaf xl <code>spacing-10</code>. Secties <code>spacing-6</code> boven en onder; productrasters <code>spacing-2</code> tussenruimte op een telefoon, <code>spacing-5</code> vanaf md.</li>
+<li>Hoeken: <code>radius-md</code> (6px) is de standaard voor knoppen, tegels, velden en menu&#x27;s. <code>radius-full</code> voor pillen (Bestseller, voorraad, snelkoppelingen, teller). <code>radius-xl</code> (12px) voor de grote vlakken: hero, banners, de Rails-kaart.</li>
+<li>Tegels hebben geen schaduw maar een ring: 1px <code>color-neutral-200</code>, bij hover 2px <code>color-brand</code>. Schaduw alleen voor wat zweeft of plakt: <code>shadow-sm</code> (sticky header, badges op de foto), <code>shadow-md</code> (tooltip), <code>shadow-xl</code> (megamenu), <code>shadow-2xl</code> (zoek-dropdown), <code>shadow-buy-bar</code> (sticky koopbalk).</li>
+<li>Focus: de bron gebruikt een ring van 2px, in wisselende kleuren (<code>color-violet-900</code> bij de galerij, <code>color-yellow-400</code> bij het productlabel, <code>color-violet-500</code> bij velden, de Rails-pagina&#x27;s <code>violet-800</code>). Kies bij iets nieuws ring 2px <code>color-violet-500</code> met 2px tussenruimte in <code>color-page</code>, zoals de keuzeknoppen in het afrekenen.</li>
+<li>Beweging is klein: <code>fadeIn</code> 0.3s (4px omhoog) voor de teller en de toast, <code>slideIn</code> 0.2s voor panelen, <code>shimmer</code> 1.5s voor laadskeletten, kleurovergangen op hover.</li>
+</ul>
+<h2 id="beeld">Beeld</h2>
+<ul>
+<li>Productfoto&#x27;s: altijd op wit, <code>object-contain</code>, nooit bijgesneden. Op de categorietegel wordt de foto met <code>mix-blend-mode: multiply</code> op <code>color-sky-50</code> gelegd.</li>
+<li>Sfeerbeelden (<code>assets/Beeld/brand-*.jpg</code>) naast het USP-blok op de homepage; merkbanners (<code>index-brand-*.png</code>) op de merkkaarten.</li>
+<li>De twee donkere banners (Tweedekans, Xelion) zijn het enige donkere beeld in de lichte winkel.</li>
+</ul>
+<h2 id="iconografie">Iconografie</h2>
+<ul>
+<li>UI-iconen zijn <strong>Tabler Icons</strong> (v3.46.0, MIT): omlijnd met lijndikte 2 op een raster van 24, of gevuld (sterren). Ze staan in <code>assets/Iconen/tabler/</code> met de namen die de storefront gebruikt (<code>cart</code>, <code>heart</code>, <code>chat</code>, <code>truck</code>, …). In de winkel tekenen ze in <code>currentColor</code>; de bestanden hier hebben inkt <code>#262626</code> (<code>color-neutral-800</code>) omdat een <code>&lt;img&gt;</code> geen kleur erft.</li>
+<li>Groottes: 24px in de header en op knoppen, 20px compact, 16px in de USP-balk, 12px bij de voorraadregel.</li>
+<li>De categorieën hebben eigen iconen: een violette schijf met wit symbool (<code>assets/Categorie-iconen</code>, 40–50px in het menu, 32px op de homepage).</li>
+<li>Eigen accenten in de huisstijlkleuren: gele vinkjes (<code>check.svg</code>), het avondverzending-busje bij de levertijd, Instagram en LinkedIn in de footer.</li>
+<li>Geen emoji als icoon.</li>
+</ul>
+<h2 id="logo">Logo</h2>
+<ul>
+<li><code>logo.svg</code>: beeldmerk (de D in een verloop van violet naar blauw) plus woordmerk &quot;dect&quot; violet en &quot;direct&quot; blauw met gele punt. Vanaf lg, 40px hoog.</li>
+<li><code>logo-without-mark.svg</code>: alleen het woordmerk, voor de smalle header (32px).</li>
+<li><code>-white</code>-varianten voor donker: &quot;dect&quot; wit, de rest gelijk.</li>
+<li><code>mark.svg</code> is het losse beeldmerk (favicon en app-icoon).</li>
+</ul>
+<h2 id="rails-paginas-winkelmand-afrekenen-account">Rails-pagina&#x27;s (winkelmand, afrekenen, account)</h2>
+<p>Deze pagina&#x27;s horen bij dezelfde winkel en volgen hetzelfde thema, met een eigen set <code>shop-*</code>-kleuren: in licht is de pagina <code>shop-page</code> (slate-50) in plaats van wit, de grijzen zijn Tailwinds slate, links <code>shop-link</code> (sky-600) en velden hebben <code>shop-field-border</code>. Donker heeft exact de storefront-waarden. De inhoud staat in een witte kaart (<code>radius-xl</code>, <code>shadow-sm</code>). Violet-vlakken en gele knoppen zijn gelijk aan de storefront.</p>
+<h2 id="verschil-met-het-lightspeed-thema">Verschil met het Lightspeed-thema</h2>
+<p>Het oude thema (Lightspeed C-series, Tailwind v3) bevestigt de basis: Barlow, het violet als hoofdkleur, gele koopknoppen met violet label, <code>sky-500</code> links, dezelfde producttegel en dezelfde logobestanden. De nieuwe winkel wint waar ze verschillen:</p>
+<ul>
+<li>Violet-900 is in Tailwind v4 <code>oklch(38% 0.189 293.745)</code> (≈ #4d179a); Lightspeed en de Rails-pagina&#x27;s gebruiken v3 <code>#4c1d95</code>. Zelfde rol, net iets andere waarde.</li>
+<li>Iconen: Lightspeed gebruikte Heroicons (lijndikte 1.5); de nieuwe winkel Tabler (lijndikte 2).</li>
+<li>Lightspeed had geen donker thema, geen <code>color-brand</code>/<code>color-brand-tint</code>-tokens en staffelprijzen (&quot;Prijs bij 5 stuks&quot;) waar de nieuwe winkel de laatste-voorraadrijen heeft.</li>
+<li>Het hoofdmenu, de USP-balk, de nieuwsbrief-band en de categorie-iconen zijn zo overgenomen.</li>
+</ul>
+<h2 id="bekende-contrastproblemen-bron-niet-aangepast">Bekende contrastproblemen (bron, niet aangepast)</h2>
+<p>Deze paren komen zo uit de code en halen 4,5:1 (of 3:1 voor iconen) niet. Ze staan ook bij hun tokens.</p>
+<ul>
+<li><code>color-sky-500</code> als linktekst op wit: 2,7:1 (licht). Dekt alle storefront-links en de verlanglijst-knop.</li>
+<li><code>color-neutral-400</code> (excl. btw op tegels, SKU in zoekresultaten): 2,6:1 op wit, 2,4:1 op <code>color-brand-tint</code>.</li>
+<li><code>color-green-500</code>: &quot;Op voorraad&quot; als tekst 2,2:1 en wit op de groene voorraad-pil en de &quot;toegevoegd&quot;-knop 2,2:1.</li>
+<li>Laatste voorraad, donker: witte teller op <code>color-brand</code> (#c4b5fd) 1,85:1.</li>
+<li><code>color-neutral-500</code> op <code>color-neutral-100</code> of <code>color-brand-tint</code>: 4,3:1.</li>
+<li>Wit op het lichte einde van de nieuwsbrief-band (<code>color-sky-500</code>): 2,7:1.</li>
+<li>Rails: <code>shop-link</code> 4,1:1 op wit, <code>shop-400</code> 2,6:1, amber-600 (&quot;Prijs gewijzigd&quot;) 3,2:1.</li>
+</ul>
+<h2 id="niet-opgenomen">Niet opgenomen</h2>
+<p>Het Tailwind-palet staat er alleen in voor zover de winkel het gebruikt. Niet als component: de Xelion-calculator, de fotogalerij en lightbox, filters en sorteren, productspecificaties en tabbladen, reviews, dialogen, de winkelwagen-toast, de chatknop en de oranje ShopNotice. Productfoto&#x27;s komen uit de productfeed en zitten niet in het systeem. De componenten zijn statische weergaven (HTML met <code>components/bundle.css</code>), met de klassen nagebouwd uit de React-componenten van de storefront; er is geen bundel gebouwd.</p>
+</article>
+<section>
+<h2 id="componenten">Componenten</h2>
+<div class="component-groups"><div class="component-group"><h3>Acties</h3><ul class="chips"><li><a href="componenten/AddToCart.html">AddToCart</a></li><li><a href="componenten/Button.html">Button</a></li><li><a href="componenten/QuantityStepper.html">QuantityStepper</a></li></ul></div><div class="component-group"><h3>Afrekenen</h3><ul class="chips"><li><a href="componenten/PaymentMethods.html">PaymentMethods</a></li></ul></div><div class="component-group"><h3>Categorie</h3><ul class="chips"><li><a href="componenten/CategoryTile.html">CategoryTile</a></li></ul></div><div class="component-group"><h3>Formulieren</h3><ul class="chips"><li><a href="componenten/Field.html">Field</a></li></ul></div><div class="component-group"><h3>Inhoud</h3><ul class="chips"><li><a href="componenten/PromoBanner.html">PromoBanner</a></li><li><a href="componenten/UspList.html">UspList</a></li></ul></div><div class="component-group"><h3>Navigatie</h3><ul class="chips"><li><a href="componenten/Breadcrumbs.html">Breadcrumbs</a></li><li><a href="componenten/Footer.html">Footer</a></li><li><a href="componenten/Header.html">Header</a></li><li><a href="componenten/MainMenu.html">MainMenu</a></li><li><a href="componenten/Pagination.html">Pagination</a></li></ul></div><div class="component-group"><h3>Prijs</h3><ul class="chips"><li><a href="componenten/LastStockPrice.html">LastStockPrice</a></li><li><a href="componenten/Price.html">Price</a></li></ul></div><div class="component-group"><h3>Product</h3><ul class="chips"><li><a href="componenten/CompactProductCard.html">CompactProductCard</a></li><li><a href="componenten/ProductCard.html">ProductCard</a></li></ul></div><div class="component-group"><h3>Status</h3><ul class="chips"><li><a href="componenten/Badge.html">Badge</a></li><li><a href="componenten/StockBadge.html">StockBadge</a></li></ul></div><div class="component-group"><h3>Overig</h3><ul class="chips"><li><a href="componenten/Cover.html">Cover</a></li></ul></div></div>
+</section>
+</main>
+</body>
+</html>

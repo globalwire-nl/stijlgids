@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>UspList · DectDirect stijlgids</title>
+<link rel="icon" href="../assets/Logos/favicon.png">
+<link rel="stylesheet" href="../fonts/barlow.css">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../site.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="site-logo" href="../index.html" aria-label="DectDirect stijlgids">
+    <picture><source srcset="../assets/Logos/logo-white.svg" media="(prefers-color-scheme: dark)"><img src="../assets/Logos/logo.svg" alt="DectDirect" width="160" height="40"></picture>
+    <span>Stijlgids</span>
+  </a>
+  <nav class="site-nav"><a href="../index.html">Merkboek</a><a href="../tokens.html">Tokens</a><a href="../beeld.html">Beeld</a><a href="../index.html#componenten">Componenten</a></nav>
+</header>
+<main class="site-main">
+<p class="crumbs"><a href="../index.html#componenten">Componenten</a> › Inhoud</p>
+<h1>UspList</h1>
+<h2 id="voorbeeld" class="sr">Voorbeeld</h2>
+<div class="previews">
+<figure class="preview" id="licht"><figcaption><span>Licht</span><a href="UspList-voorbeeld.html">Los openen</a></figcaption><iframe class="preview-frame" src="UspList-voorbeeld.html" title="Voorbeeld van UspList, licht" sandbox="allow-same-origin" referrerpolicy="no-referrer" loading="lazy" style="height: 330px"></iframe></figure>
+<figure class="preview" id="donker"><figcaption><span>Donker</span><a href="UspList-voorbeeld-donker.html">Los openen</a></figcaption><iframe class="preview-frame" src="UspList-voorbeeld-donker.html" title="Voorbeeld van UspList, donker" sandbox="allow-same-origin" referrerpolicy="no-referrer" loading="lazy" style="height: 330px"></iframe></figure>
+</div>
+<article class="prose">
+<p>De beloftes van DectDirect als lijst met icoon: groot op violet op de homepage, klein in de kolom van de productpagina.</p>
+<h2 id="gebruik">Gebruik</h2>
+<ul>
+<li>Op violet (<code>color-violet-900</code>, <code>radius-md</code>): kop &quot;Op ons kun je rekenen.&quot;, regels 20px vanaf lg, iconen 32px in <code>color-yellow-500</code> (5,8:1).</li>
+<li>In de hero: vinkjes (<code>check</code>) in <code>color-yellow-500</code> met vier regels.</li>
+<li>Op de productpagina: kop <code>heading-small</code>, iconen in <code>color-brand</code>, de installatieservice als link in <code>color-sky-500</code>.</li>
+<li>Vaste beloftes en hun woorden: <strong>gratis</strong> verzending binnen de Benelux (EU tegen betaling), <strong>Installatieservice</strong> kant-en-klaar of op locatie, kopen <strong>op rekening</strong> voor de zakelijke markt, Professioneel <strong>advies</strong>, altijd minimaal <strong>2 jaar garantie</strong>, Klantbeoordeling <strong>9.2/10</strong> (in de hero &quot;9,2&quot;). Het belangrijkste woord is bold.</li>
+</ul>
+</article>
+<section>
+<h2 id="andere-componenten">Andere componenten</h2>
+<div class="component-groups"><div class="component-group"><h3>Acties</h3><ul class="chips"><li><a href="AddToCart.html">AddToCart</a></li><li><a href="Button.html">Button</a></li><li><a href="QuantityStepper.html">QuantityStepper</a></li></ul></div><div class="component-group"><h3>Afrekenen</h3><ul class="chips"><li><a href="PaymentMethods.html">PaymentMethods</a></li></ul></div><div class="component-group"><h3>Categorie</h3><ul class="chips"><li><a href="CategoryTile.html">CategoryTile</a></li></ul></div><div class="component-group"><h3>Formulieren</h3><ul class="chips"><li><a href="Field.html">Field</a></li></ul></div><div class="component-group"><h3>Inhoud</h3><ul class="chips"><li><a href="PromoBanner.html">PromoBanner</a></li><li><a href="UspList.html" aria-current=page>UspList</a></li></ul></div><div class="component-group"><h3>Navigatie</h3><ul class="chips"><li><a href="Breadcrumbs.html">Breadcrumbs</a></li><li><a href="Footer.html">Footer</a></li><li><a href="Header.html">Header</a></li><li><a href="MainMenu.html">MainMenu</a></li><li><a href="Pagination.html">Pagination</a></li></ul></div><div class="component-group"><h3>Prijs</h3><ul class="chips"><li><a href="LastStockPrice.html">LastStockPrice</a></li><li><a href="Price.html">Price</a></li></ul></div><div class="component-group"><h3>Product</h3><ul class="chips"><li><a href="CompactProductCard.html">CompactProductCard</a></li><li><a href="ProductCard.html">ProductCard</a></li></ul></div><div class="component-group"><h3>Status</h3><ul class="chips"><li><a href="Badge.html">Badge</a></li><li><a href="StockBadge.html">StockBadge</a></li></ul></div><div class="component-group"><h3>Overig</h3><ul class="chips"><li><a href="Cover.html">Cover</a></li></ul></div></div>
+</section>
+<script>
+// The frames are same-origin: grow each one to its content, so nothing is cut
+// off at phone width. Without script the export's card height stays.
+document.querySelectorAll('iframe.preview-frame').forEach(function (frame) {
+  function fit() {
+    try {
+      var win = frame.contentWindow, doc = frame.contentDocument;
+      var scrollbar = win.innerHeight - doc.documentElement.clientHeight;
+      var bottom = 0;
+      Array.prototype.forEach.call(doc.body.children, function (el) {
+        bottom = Math.max(bottom, el.getBoundingClientRect().bottom + win.scrollY + parseFloat(win.getComputedStyle(el).marginBottom || 0));
+      });
+      if (bottom > 0) frame.style.height = Math.ceil(bottom + scrollbar) + 'px';
+    } catch (e) {}
+  }
+  frame.addEventListener('load', function () {
+    fit();
+    try { new ResizeObserver(fit).observe(frame.contentDocument.body); } catch (e) {}
+  });
+});
+</script>
+</main>
+</body>
+</html>

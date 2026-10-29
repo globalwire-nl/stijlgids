@@ -1,0 +1,276 @@
+/* DectDirect: statische weergave van de winkelcomponenten.
+   Elke regel is overgenomen uit de Tailwind-klassen in globalwire/storefront
+   (en de Rails-winkelpagina's in globalwire/backoffice), met de waarden uit
+   tokens.json als var(--…). Klassen beginnen met dd-. */
+
+body { margin: 0; font-family: var(--font-sans, Barlow, sans-serif); background: var(--color-page); color: var(--color-neutral-800); -webkit-font-smoothing: antialiased; font-size: 1rem; line-height: 1.5rem; }
+*, *::before, *::after { box-sizing: border-box; border-color: var(--color-neutral-200); }
+.dd-stage { padding: var(--spacing-4); display: flex; flex-wrap: wrap; gap: var(--spacing-4); align-items: flex-start; }
+.dd-col { display: grid; gap: var(--spacing-3); }
+.dd-note { font-size: 0.75rem; line-height: 1rem; color: var(--color-neutral-500); margin: 0 0 var(--spacing-1); }
+.dd-icon { width: 1.5rem; height: 1.5rem; flex-shrink: 0; }
+.dd-icon-sm { width: 1rem; height: 1rem; flex-shrink: 0; }
+.dd-icon-xs { width: 0.75rem; height: 0.75rem; flex-shrink: 0; }
+.dd-icon-md { width: 1.25rem; height: 1.25rem; flex-shrink: 0; }
+.dd-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.dd-tabular { font-variant-numeric: tabular-nums; }
+
+/* Knoppen ---------------------------------------------------------------- */
+.dd-btn { font: inherit; display: inline-flex; align-items: center; justify-content: center; gap: var(--spacing-2); border: 0; border-radius: var(--radius-md); font-weight: 700; cursor: pointer; text-decoration: none; transition: background-color .15s, color .15s; }
+/* bg-yellow-500 hover:bg-yellow-400 text-violet-900 font-bold rounded-md px-5 py-2.5 (Afrekenen) */
+.dd-btn-buy { background: var(--color-yellow-500); color: var(--color-violet-900); padding: var(--spacing-2-5) 1.25rem; }
+.dd-btn-buy:hover { background: var(--color-yellow-400); }
+/* productpagina: py-3 text-lg w-full */
+.dd-btn-buy-lg { background: var(--color-yellow-500); color: var(--color-violet-900); padding: var(--spacing-3) var(--spacing-4); font-size: 1.125rem; line-height: 1.75rem; width: 100%; }
+.dd-btn-buy-lg:hover { background: var(--color-yellow-400); }
+/* banners: bg-yellow-400 group-hover:bg-yellow-300 px-8 py-3 text-lg */
+.dd-btn-banner { background: var(--color-yellow-400); color: var(--color-violet-900); padding: var(--spacing-3) var(--spacing-8); font-size: 1.125rem; line-height: 1.75rem; white-space: nowrap; }
+.dd-btn-banner:hover { background: var(--color-yellow-300); }
+/* hero-snelkoppeling: rounded-full bg-yellow-500 px-4 py-2 */
+.dd-btn-pill { background: var(--color-yellow-500); color: var(--color-violet-900); border-radius: var(--radius-full); padding: var(--spacing-2) var(--spacing-4); font-size: 1rem; line-height: 1.5rem; }
+.dd-btn-pill:hover { background: var(--color-yellow-400); }
+/* ring-1 ring-white/40 op violet */
+.dd-btn-pill-ghost { background: transparent; color: var(--color-white); border-radius: var(--radius-full); padding: var(--spacing-2) var(--spacing-4); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.4); }
+.dd-btn-pill-ghost:hover { box-shadow: inset 0 0 0 1px var(--color-white); }
+/* verlanglijst: text-sky-500 font-bold border hover:border-brand min-h-[50px] text-lg */
+.dd-btn-outline { background: transparent; color: var(--color-sky-500); border: 1px solid var(--color-neutral-200); min-height: 50px; padding: var(--spacing-1) var(--spacing-3); font-size: 1.125rem; line-height: 1.75rem; width: 100%; }
+.dd-btn-outline:hover { border-color: var(--color-brand); }
+/* Rails: text-shop-brand bg-shop-100 rounded-md px-3 py-2 text-sm (Toepassen) */
+.dd-btn-quiet { background: var(--color-neutral-100); color: var(--color-brand); font-size: 0.875rem; line-height: 1.25rem; font-weight: 600; padding: var(--spacing-2) var(--spacing-3); }
+.dd-btn-quiet:hover { background: var(--color-neutral-200); }
+/* Rails, uitgeschakeld: bg-shop-200 text-shop-400 */
+.dd-btn-disabled { background: var(--color-neutral-200); color: var(--color-neutral-400); padding: var(--spacing-2-5) 1.25rem; cursor: not-allowed; }
+.dd-btn:disabled { opacity: .5; }
+
+/* In winkelwagen ------------------------------------------------------------ */
+/* tegel: block rounded-md bg-yellow-500 hover:bg-yellow-400 text-violet-800 p-2 */
+.dd-cart-icon-btn { display: inline-flex; border: 0; border-radius: var(--radius-md); background: var(--color-yellow-500); color: var(--color-violet-800); padding: var(--spacing-2); cursor: pointer; transition: background-color .15s; }
+.dd-cart-icon-btn:hover { background: var(--color-yellow-400); }
+.dd-cart-icon-btn.is-compact { padding: var(--spacing-1); }
+/* successClassName: bg-green-500 text-white */
+.dd-is-added { background: var(--color-green-500) !important; color: var(--color-white) !important; }
+/* sticky koopbalk */
+.dd-buy-bar { display: flex; align-items: center; gap: var(--spacing-3); background: var(--color-surface); border-top: 1px solid var(--color-neutral-200); padding: var(--spacing-3) var(--spacing-4); box-shadow: var(--shadow-buy-bar); }
+.dd-buy-bar__price { margin: 0; font-size: 1.5rem; line-height: 2rem; font-weight: 700; color: var(--color-brand); white-space: nowrap; }
+.dd-buy-bar .dd-btn-buy { margin-left: auto; padding: var(--spacing-3) var(--spacing-4); }
+
+/* Aantal-stepper (LastStockBuyButton) -------------------------------------- */
+.dd-stepper { display: flex; align-items: stretch; border: 2px solid var(--color-neutral-200); border-radius: var(--radius-md); flex-shrink: 0; }
+.dd-stepper button { font: inherit; width: 2.75rem; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; line-height: 2rem; color: var(--color-neutral-500); background: transparent; border: 0; cursor: pointer; }
+.dd-stepper button:hover { color: var(--color-brand); }
+.dd-stepper button:disabled { opacity: .4; cursor: default; }
+.dd-stepper output { width: 2.5rem; display: flex; align-items: center; justify-content: center; font-size: 1.125rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.dd-buy-row { display: flex; gap: var(--spacing-2); }
+.dd-buy-row .dd-btn-buy-lg { flex: 1; }
+.dd-buy-sum { margin: var(--spacing-2) 0 0; font-size: 0.875rem; line-height: 1.25rem; color: var(--color-neutral-500); font-variant-numeric: tabular-nums; }
+.dd-buy-sum strong { color: var(--color-neutral-800); }
+.dd-buy-sum span { color: var(--color-neutral-400); }
+
+/* Prijzen ------------------------------------------------------------------- */
+.dd-price-tile { margin: 0 0 var(--spacing-1); font-size: 1.5rem; line-height: 1rem; font-weight: 700; }
+.dd-price-tile-excl { margin: 0; font-size: 0.875rem; line-height: 1.25rem; color: var(--color-neutral-400); }
+.dd-price-hero { margin: 0; font-size: 3rem; line-height: 1; font-weight: 700; color: var(--color-brand); }
+.dd-price-hero-excl { margin: 0; font-size: 0.875rem; line-height: 1.25rem; color: var(--color-neutral-500); text-transform: lowercase; }
+.dd-price-compact { margin: 0; font-size: 1rem; line-height: 1.5rem; font-weight: 700; }
+
+/* Laatste voorraad (PriceRow) */
+.dd-price-rows { display: grid; gap: var(--spacing-2); }
+.dd-price-row { display: flex; align-items: center; border: 2px solid var(--color-neutral-200); border-radius: var(--radius-md); padding: var(--spacing-2-5) var(--spacing-4); transition: background-color .15s, border-color .15s; }
+.dd-price-row.is-active { border-color: var(--color-brand); background: var(--color-brand-tint); }
+.dd-price-row__title { margin: 0; font-weight: 700; color: var(--color-neutral-800); line-height: 1.25rem; }
+.dd-price-row__sub { margin: 0; font-size: 0.875rem; color: var(--color-neutral-500); line-height: 1.25rem; }
+.dd-price-row__prices { margin-left: auto; text-align: right; }
+.dd-price-row__incl { margin: 0; font-size: 1.25rem; line-height: 1.5rem; font-weight: 700; color: var(--color-brand); font-variant-numeric: tabular-nums; }
+.dd-price-row__excl { margin: 0; font-size: 0.75rem; line-height: 1rem; color: var(--color-neutral-400); font-variant-numeric: tabular-nums; }
+.dd-price-row__count { margin-left: var(--spacing-3); display: inline-flex; align-items: center; border-radius: var(--radius-full); font-size: 0.75rem; line-height: 1rem; font-weight: 700; padding: 0.125rem var(--spacing-2); font-variant-numeric: tabular-nums; visibility: hidden; }
+.dd-price-row.is-active .dd-price-row__count { visibility: visible; background: var(--color-brand); color: var(--color-white); }
+.dd-last-stock-line { margin: var(--spacing-2) 0 0; padding-top: var(--spacing-2); border-top: 1px dashed var(--color-neutral-200); font-size: 0.875rem; line-height: 1rem; color: var(--color-neutral-500); }
+
+/* Producttegel ----------------------------------------------------------- */
+.dd-card { position: relative; width: 100%; border-radius: var(--radius-md); padding: var(--spacing-4); display: flex; flex-direction: column; }
+.dd-card::before { content: ""; position: absolute; inset: 0; border-radius: var(--radius-md); box-shadow: 0 0 0 1px var(--color-neutral-200); pointer-events: none; transition: box-shadow .15s; }
+.dd-card:hover::before { box-shadow: 0 0 0 2px var(--color-brand); }
+.dd-card__photo { position: relative; margin: calc(var(--spacing-4) * -1) calc(var(--spacing-4) * -1) var(--spacing-4); aspect-ratio: 1; background: var(--color-white); border-bottom: 1px solid var(--color-neutral-200); border-radius: var(--radius-md) var(--radius-md) 0 0; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.dd-card__photo.is-empty { background: oklch(97% 0 0); color: oklch(87% 0 0); }
+.dd-card__badges { position: absolute; top: var(--spacing-2); left: var(--spacing-2); right: var(--spacing-2); display: flex; flex-direction: column; align-items: flex-start; gap: var(--spacing-1); }
+.dd-card__name { margin: 0; font-size: 1.125rem; line-height: 1.25rem; font-weight: 700; color: var(--color-neutral-700); min-height: 2.5rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.dd-card:hover .dd-card__name { color: var(--color-brand); }
+.dd-card__meta { margin: 0 0 var(--spacing-3); font-size: 0.875rem; line-height: 1.25rem; color: var(--color-neutral-500); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dd-card__energy { margin-top: auto; margin-bottom: var(--spacing-1-5); }
+.dd-card__buy { display: flex; align-items: flex-end; }
+.dd-card__buy > :last-child { margin-left: auto; position: relative; z-index: 1; }
+
+/* Compacte tegel */
+.dd-card-compact { position: relative; width: 100%; border-radius: var(--radius-md); display: grid; grid-template-columns: 80px 1fr; }
+.dd-card-compact::before { content: ""; position: absolute; inset: 0; border-radius: var(--radius-md); box-shadow: 0 0 0 1px var(--color-neutral-200); pointer-events: none; }
+.dd-card-compact:hover::before { box-shadow: 0 0 0 2px var(--color-brand); }
+.dd-card-compact__photo { border-right: 1px solid var(--color-neutral-200); background: var(--color-white); border-radius: var(--radius-md) 0 0 var(--radius-md); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; }
+.dd-card-compact__photo.is-empty { background: oklch(97% 0 0); color: oklch(87% 0 0); }
+.dd-card-compact__body { padding: var(--spacing-2); display: flex; flex-direction: column; min-width: 0; }
+.dd-card-compact__name { margin: 0; font-size: 0.875rem; line-height: 1.25rem; font-weight: 700; color: var(--color-neutral-700); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.dd-card-compact__foot { display: flex; align-items: flex-end; margin-top: auto; padding-top: var(--spacing-1); }
+.dd-card-compact__foot > :last-child { margin-left: auto; }
+.dd-card-compact__none { font-size: 0.75rem; color: var(--color-neutral-400); }
+
+/* Energielabel naast de prijs */
+.dd-energy { display: flex; align-items: center; gap: var(--spacing-2); }
+.dd-energy img { height: 1.5rem; width: auto; display: block; }
+.dd-energy a { font-size: 13px; line-height: 1.25; color: var(--color-neutral-900); text-decoration: none; }
+.dd-energy a:hover { text-decoration: underline; }
+
+/* Voorraad ------------------------------------------------------------------ */
+.dd-stock { display: inline-flex; align-items: center; gap: var(--spacing-1); }
+.dd-stock.is-in { color: var(--color-green-500); }
+.dd-stock.is-out { color: var(--color-rose-600); }
+.dd-stock-pill { display: inline-block; border-radius: var(--radius-full); font-size: 1rem; line-height: 1.5rem; padding: var(--spacing-2) 1.25rem; }
+.dd-stock-pill.is-in { background: var(--color-green-500); color: var(--color-white); font-weight: 500; }
+.dd-stock-pill.is-out { background: var(--color-neutral-200); color: var(--color-neutral-600); font-weight: 700; }
+.dd-second-chance { display: inline-flex; align-items: center; gap: var(--spacing-1); border: 1px solid var(--color-neutral-200); border-radius: var(--radius-full); padding: var(--spacing-2) 1.25rem; font-weight: 700; color: var(--color-green-800); text-decoration: none; }
+.dd-second-chance:hover { border-color: var(--color-brand); color: var(--color-green-600); }
+
+/* Badges -------------------------------------------------------------------- */
+.dd-badge { display: inline-flex; align-items: center; gap: var(--spacing-1); max-width: 100%; border-radius: var(--radius-full); background: var(--color-violet-900); color: var(--color-white); font-size: 0.75rem; line-height: 1rem; font-weight: 700; padding: var(--spacing-1) var(--spacing-2); box-shadow: var(--shadow-sm); }
+.dd-label { display: inline-flex; align-items: center; gap: var(--spacing-2); border-radius: var(--radius-md); background: var(--color-violet-900); color: var(--color-white); font-size: 0.875rem; line-height: 1.25rem; padding: var(--spacing-2) var(--spacing-3); box-shadow: var(--shadow-sm); margin: 0; }
+.dd-label:hover { background: var(--color-violet-800); }
+.dd-label .dd-icon-md { opacity: .8; }
+.dd-tooltip { display: block; width: 16rem; border-radius: var(--radius-md); background: var(--color-neutral-100); padding: var(--spacing-3); font-size: 0.875rem; line-height: 1.25rem; color: var(--color-neutral-900); box-shadow: var(--shadow-md); }
+.dd-cart-count { position: absolute; right: -0.5rem; bottom: -0.5rem; min-width: 18px; height: 18px; border-radius: var(--radius-full); background: var(--color-violet-900); color: var(--color-white); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+
+/* Categorie ----------------------------------------------------------------- */
+.dd-cat-tile { display: block; text-decoration: none; width: 10rem; }
+.dd-cat-tile__img { aspect-ratio: 1; border-radius: var(--radius-md); background: oklch(97.7% 0.013 236.62); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 1px transparent; transition: box-shadow .15s; overflow: hidden; }
+.dd-cat-tile:hover .dd-cat-tile__img { box-shadow: 0 0 0 1px var(--color-brand); }
+.dd-cat-tile__img img { width: 100%; height: 100%; object-fit: contain; padding: var(--spacing-6); mix-blend-mode: multiply; }
+.dd-cat-tile__label { margin: var(--spacing-3) 0 0; text-align: center; font-weight: 700; color: var(--color-brand); }
+.dd-cat-tile:hover .dd-cat-tile__label { text-decoration: underline; }
+.dd-cat-link { display: flex; align-items: center; gap: var(--spacing-2); border-radius: var(--radius-md); box-shadow: 0 0 0 1px var(--color-neutral-200); padding: var(--spacing-3); font-weight: 700; color: var(--color-neutral-800); text-decoration: none; }
+.dd-cat-link:hover { box-shadow: 0 0 0 2px var(--color-brand); }
+.dd-cat-link.is-brand { color: var(--color-brand); }
+.dd-cat-link img { width: 2rem; height: 2rem; }
+
+/* Hoofdmenu (vanaf lg) */
+.dd-menu { display: flex; background: var(--color-surface); }
+.dd-menu__item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: var(--spacing-3); background: var(--color-neutral-100); font-size: 13px; line-height: 1; text-transform: uppercase; letter-spacing: 0.05em; text-align: center; color: var(--color-neutral-800); text-decoration: none; border: 1px solid transparent; }
+.dd-menu__item:hover { background: var(--color-surface); border-color: var(--color-neutral-200); border-bottom-color: transparent; }
+.dd-menu__item.is-brand { color: var(--color-brand); font-weight: 700; }
+.dd-menu__item img { width: 50px; margin-bottom: var(--spacing-2); }
+.dd-mega { background: var(--color-surface); box-shadow: var(--shadow-xl); padding: var(--spacing-10) var(--spacing-4); display: flex; flex-wrap: wrap; gap: var(--spacing-4) 0; }
+.dd-mega > div { width: 25%; }
+.dd-mega a { color: inherit; text-decoration: none; display: block; }
+.dd-mega a:hover { color: var(--color-sky-500); }
+.dd-mega .is-head { font-weight: 700; color: var(--color-brand); }
+
+/* Header -------------------------------------------------------------------- */
+.dd-infobar { margin: 0; background: var(--color-yellow-500); color: var(--color-violet-900); text-align: center; font-weight: 700; font-size: 0.875rem; line-height: 1.25rem; padding: var(--spacing-2) var(--spacing-4); }
+.dd-uspbar { display: flex; justify-content: space-evenly; list-style: none; margin: 0; background: var(--color-violet-900); color: var(--color-white); font-size: 0.75rem; line-height: 1rem; padding: var(--spacing-2); }
+.dd-uspbar li { display: flex; align-items: center; gap: var(--spacing-2); }
+.dd-uspbar svg { color: var(--color-yellow-500); }
+.dd-header { background: var(--color-surface); border-top: 1px solid var(--color-neutral-200); border-bottom: 1px solid var(--color-neutral-200); box-shadow: var(--shadow-sm); }
+.dd-header__row { padding: var(--spacing-4) var(--spacing-8); display: flex; align-items: center; gap: var(--spacing-4); }
+.dd-header__logo { flex: 1; }
+.dd-header__logo img { height: 2.5rem; display: block; }
+.dd-header__logo .is-dark { display: none; }
+[data-theme="dark"] .dd-header__logo .is-light { display: none; }
+[data-theme="dark"] .dd-header__logo .is-dark { display: block; }
+.dd-header__icons { flex: 1; display: flex; justify-content: flex-end; align-items: center; gap: 1.25rem; list-style: none; margin: 0; padding: 0; }
+.dd-header__icons a { color: inherit; display: flex; align-items: center; position: relative; text-decoration: none; }
+.dd-header__icons a:hover { opacity: .75; }
+.dd-service { display: flex; flex-direction: column; margin-left: var(--spacing-2); }
+.dd-service small { font-size: 0.875rem; line-height: 1rem; }
+.dd-service b { font-size: 1.25rem; line-height: 1rem; }
+.dd-dot { position: absolute; right: -0.25rem; bottom: -0.25rem; width: 0.75rem; height: 0.75rem; border-radius: var(--radius-full); border: 2px solid var(--color-surface); background: var(--color-green-500); }
+
+/* Zoeken en velden ------------------------------------------------------ */
+.dd-search { position: relative; min-width: 300px; }
+.dd-search input { font: inherit; width: 100%; border-radius: var(--radius-md); border: 2px solid var(--color-brand); padding: var(--spacing-2) var(--spacing-4) var(--spacing-2) 2.5rem; background: var(--color-surface); color: inherit; }
+.dd-search svg { position: absolute; left: var(--spacing-3); top: 50%; transform: translateY(-50%); color: var(--color-neutral-500); }
+.dd-search-results { margin-top: var(--spacing-1); background: var(--color-surface); border: 1px solid var(--color-neutral-200); border-radius: var(--radius-md); box-shadow: var(--shadow-2xl); overflow: hidden; width: 31.25rem; }
+.dd-search-result { display: flex; align-items: center; gap: var(--spacing-3); padding: var(--spacing-3); }
+.dd-search-result + .dd-search-result { border-top: 1px solid var(--color-neutral-100); }
+.dd-search-result.is-selected { background: var(--color-brand-tint); }
+.dd-search-result__thumb { width: 3rem; height: 3rem; border-radius: var(--radius-sm); background: oklch(98.5% 0 0); flex-shrink: 0; }
+.dd-search-result p { margin: 0; }
+.dd-search-result .is-name { font-size: 0.875rem; font-weight: 500; color: var(--color-neutral-800); }
+.dd-search-result .is-meta { font-size: 0.75rem; color: var(--color-neutral-400); }
+.dd-field-label { display: grid; gap: var(--spacing-1); font-size: 0.875rem; line-height: 1.25rem; font-weight: 600; }
+.dd-input { font: inherit; font-size: 1rem; font-weight: 400; border-radius: var(--radius-md); border: 1px solid var(--color-neutral-300); padding: var(--spacing-2-5) var(--spacing-3); background: var(--color-surface); color: inherit; }
+.dd-input:focus { outline: none; border-color: var(--color-violet-500); box-shadow: 0 0 0 2px var(--color-violet-500); }
+.dd-input.has-error { border-color: var(--color-red-500); box-shadow: 0 0 0 4px var(--color-red-100); }
+.dd-error { margin: 0; font-size: 0.875rem; color: var(--color-red-700); }
+.dd-newsletter { display: flex; align-items: center; border-radius: var(--radius-md); background: var(--color-white); box-shadow: var(--shadow-inner); }
+.dd-newsletter:focus-within { box-shadow: 0 0 0 4px var(--color-violet-500); }
+.dd-newsletter input { font: inherit; font-size: 1.125rem; border: 0; outline: none; background: transparent; padding: var(--spacing-3) var(--spacing-3) var(--spacing-3) 1.25rem; min-width: 300px; color: oklch(12.9% 0.042 264.695); }
+.dd-newsletter .dd-btn-buy { padding: var(--spacing-1) var(--spacing-3); margin-right: var(--spacing-3); }
+
+/* Afrekenen ---------------------------------------------------------------- */
+.dd-pay-logos { display: flex; align-items: center; justify-content: flex-end; gap: var(--spacing-3); }
+.dd-pay-logos > span { font-size: 0.75rem; color: var(--color-neutral-500); }
+.dd-pay-logos ul { display: flex; flex-wrap: wrap; align-items: center; gap: var(--spacing-3); list-style: none; margin: 0; padding: 0; }
+[data-theme="dark"] .dd-pay-logos ul { background: var(--color-white); border-radius: var(--radius-md); padding: var(--spacing-1-5) var(--spacing-2); }
+.dd-pay-logos img { display: block; width: auto; }
+.dd-legend { font-weight: 600; color: var(--color-neutral-900); margin-bottom: var(--spacing-1); padding: 0; }
+.dd-fieldset { border: 0; margin: 0; padding: 0; display: grid; gap: var(--spacing-2); }
+.dd-toggle { display: flex; flex-wrap: wrap; gap: var(--spacing-2); }
+.dd-toggle label { cursor: pointer; }
+.dd-toggle input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.dd-toggle span { display: inline-flex; align-items: center; gap: var(--spacing-1-5); padding: var(--spacing-1-5) 0.875rem; border-radius: var(--radius-md); border: 2px solid var(--color-neutral-300); background: var(--color-surface); font-size: 0.875rem; line-height: 1.25rem; color: var(--color-neutral-700); font-weight: 600; }
+.dd-toggle span:hover { border-color: var(--color-neutral-400); }
+.dd-toggle input:checked + span { border-color: var(--color-violet-900); background: var(--color-violet-900); color: var(--color-white); }
+.dd-toggle input:focus-visible + span { box-shadow: 0 0 0 2px var(--color-page), 0 0 0 4px var(--color-violet-500); }
+.dd-radio { display: flex; align-items: flex-start; gap: var(--spacing-2); font-size: 0.875rem; line-height: 1.25rem; color: var(--color-neutral-700); cursor: pointer; }
+.dd-radio input { margin-top: 0.125rem; accent-color: oklch(43.2% 0.232 292.759); }
+.dd-radio .is-muted { color: var(--color-neutral-500); }
+.dd-panel { background: var(--color-surface); border: 1px solid var(--color-neutral-200); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); padding: var(--spacing-6); }
+
+/* Navigatie-onderdelen ---------------------------------------------------- */
+.dd-crumbs { font-size: 0.875rem; line-height: 1.25rem; color: var(--color-neutral-500); }
+.dd-crumbs ol { display: flex; flex-wrap: wrap; gap: var(--spacing-1); list-style: none; margin: 0; padding: 0; }
+.dd-crumbs li + li::before { content: "›"; margin-right: var(--spacing-1); }
+.dd-crumbs a { color: inherit; text-decoration: none; }
+.dd-crumbs a:hover { color: var(--color-sky-500); }
+.dd-pages { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--spacing-1); font-weight: 700; list-style: none; margin: 0; padding: 0; }
+.dd-pages a, .dd-pages span { display: flex; align-items: center; justify-content: center; min-width: 40px; height: 2.5rem; padding: 0 var(--spacing-1); border: 1px solid var(--color-neutral-200); border-radius: var(--radius-md); color: var(--color-sky-500); text-decoration: none; }
+.dd-pages a:hover { border-color: var(--color-sky-500); }
+.dd-pages .is-current { color: inherit; }
+.dd-pages .is-gap { border: 0; color: inherit; }
+
+/* USP's en banners --------------------------------------------------------- */
+.dd-usp-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--spacing-4); font-size: 1.125rem; line-height: 1.75rem; }
+.dd-usp-list li { display: flex; align-items: center; gap: var(--spacing-2); }
+.dd-usp-list svg { color: var(--color-yellow-500); }
+.dd-usp-lines { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--spacing-2); }
+.dd-usp-lines li { display: flex; align-items: center; gap: var(--spacing-2); }
+.dd-usp-lines svg { color: var(--color-brand); }
+.dd-usp-lines a { font-weight: 700; color: var(--color-sky-500); }
+.dd-hero { border-radius: var(--radius-xl); background: var(--color-violet-900); color: var(--color-white); padding: var(--spacing-10); display: grid; grid-template-columns: 1fr auto; gap: var(--spacing-6) var(--spacing-12); align-items: center; }
+.dd-hero h1 { margin: 0; font-size: 3rem; line-height: 1; font-weight: 700; }
+.dd-hero__lead { margin: var(--spacing-3) 0 0; font-size: 1.5rem; line-height: 2rem; opacity: .8; }
+.dd-hero__links { display: flex; flex-wrap: wrap; gap: var(--spacing-2); list-style: none; margin: 0; padding: 0; }
+.dd-hero__usps { border-left: 1px solid rgb(255 255 255 / 0.2); padding-left: var(--spacing-12); }
+.dd-promo { position: relative; overflow: hidden; display: flex; flex-direction: column; border-radius: var(--radius-xl); padding: var(--spacing-8); color: var(--color-white); background: linear-gradient(to bottom right, var(--color-slate-900), var(--color-slate-600)); text-decoration: none; }
+.dd-promo:hover { box-shadow: 0 0 0 2px var(--color-brand); }
+.dd-promo h2 { margin: 0; font-size: 1.875rem; line-height: 2.25rem; font-weight: 700; }
+.dd-promo h2 span { display: inline-block; color: transparent; -webkit-background-clip: text; background-clip: text; }
+.dd-promo .is-green { background-image: linear-gradient(to bottom right, var(--color-green-500), var(--color-lime-200)); }
+.dd-promo .is-xelion { background-image: linear-gradient(to bottom right, var(--color-sky-500), var(--color-violet-500)); }
+.dd-promo p { font-size: 1.125rem; line-height: 1.75rem; margin: var(--spacing-2) 0 var(--spacing-6); max-width: 24rem; position: relative; }
+.dd-promo .dd-btn { align-self: flex-start; position: relative; z-index: 1; }
+.dd-promo__art { position: absolute; right: -2.5rem; bottom: -2.5rem; width: 14rem; opacity: .6; pointer-events: none; }
+
+/* Footer -------------------------------------------------------------------- */
+.dd-footer { border-top: 1px solid var(--color-neutral-200); }
+.dd-footer__news { background: linear-gradient(to bottom right, var(--color-violet-900), var(--color-sky-500)); color: var(--color-white); padding: var(--spacing-10) var(--spacing-10); display: flex; align-items: center; gap: var(--spacing-6); }
+.dd-footer__news h4 { margin: 0; font-size: 1.5rem; line-height: 2rem; font-weight: 400; }
+.dd-footer__news .dd-newsletter { margin-left: auto; }
+.dd-footer__cols { display: flex; gap: var(--spacing-5); padding: var(--spacing-10); }
+.dd-footer__cols > div { flex: 1; }
+.dd-footer__cols h4 { margin: 0 0 var(--spacing-2); font-weight: 700; }
+.dd-footer__cols ul { list-style: none; margin: 0; padding: 0; }
+.dd-footer__cols a { color: inherit; text-decoration: none; }
+.dd-footer__cols a:hover { color: var(--color-sky-500); }
+.dd-footer__cols .is-strong { font-weight: 600; display: inline-flex; align-items: center; gap: var(--spacing-2); }
+.dd-footer__legal { border-top: 1px solid var(--color-neutral-200); padding: var(--spacing-8) 1.25rem; display: flex; flex-direction: column; align-items: center; gap: 1.25rem; color: var(--color-neutral-500); }
+.dd-footer__legal p { margin: 0; }
+.dd-theme-switch { display: inline-flex; border: 1px solid var(--color-neutral-200); border-radius: var(--radius-full); padding: 0.125rem; font-size: 0.875rem; }
+.dd-theme-switch span { display: flex; align-items: center; gap: var(--spacing-1-5); border-radius: var(--radius-full); padding: var(--spacing-1-5) var(--spacing-3); }
+.dd-theme-switch .is-on { background: var(--color-neutral-100); color: var(--color-neutral-900); }

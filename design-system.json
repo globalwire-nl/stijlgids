@@ -1,0 +1,816 @@
+{
+ "v": 3,
+ "layout": "files",
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-10-29T10:10:06Z"
+ },
+ "title": "DectDirect",
+ "namespace": "DectDirect",
+ "libraries": [],
+ "sections": {},
+ "groups": [
+  "Logos",
+  "Categorie-iconen",
+  "Iconen",
+  "Energielabels",
+  "Betaalmethoden",
+  "Beeld"
+ ],
+ "assetGroups": {
+  "Logos": {
+   "name": "Logos",
+   "tile": "l",
+   "order": [
+    "logo.svg",
+    "logo-white.svg",
+    "logo-without-mark.svg",
+    "logo-without-mark-white.svg",
+    "mark.svg",
+    "apple-icon.png",
+    "favicon.png"
+   ],
+   "files": {
+    "logo.svg": {
+     "name": "logo.svg",
+     "blob": "6a0cc7c1c550c67e564064737cebb07b",
+     "size": 13091,
+     "type": "image/svg+xml"
+    },
+    "logo-white.svg": {
+     "name": "logo-white.svg",
+     "blob": "961a628b7475eb3f098da3c112a2a9b0",
+     "size": 13079,
+     "type": "image/svg+xml"
+    },
+    "logo-without-mark.svg": {
+     "name": "logo-without-mark.svg",
+     "blob": "ed643683401f929bb827cc2ae784cbc2",
+     "size": 10256,
+     "type": "image/svg+xml"
+    },
+    "logo-without-mark-white.svg": {
+     "name": "logo-without-mark-white.svg",
+     "blob": "5e8184e938504ffa74a1c73df33075cd",
+     "size": 10244,
+     "type": "image/svg+xml"
+    },
+    "mark.svg": {
+     "name": "mark.svg",
+     "blob": "35ee3155971c8f2a88512d46b9812bda",
+     "size": 1346,
+     "type": "image/svg+xml"
+    },
+    "apple-icon.png": {
+     "name": "apple-icon.png",
+     "blob": "eef5e611a0312324727c32c2d7269647",
+     "size": 5569,
+     "type": "image/png"
+    },
+    "favicon.png": {
+     "name": "favicon.png",
+     "blob": "936be53981213d5d21a789fc5a17a985",
+     "size": 1227,
+     "type": "image/png"
+    }
+   }
+  },
+  "Categorie-iconen": {
+   "name": "Categorie-iconen",
+   "tile": "s",
+   "order": [
+    "cat-beveiliging.svg",
+    "cat-computer-accessoires.svg",
+    "cat-computer.svg",
+    "cat-headsets.svg",
+    "cat-huishoudelijk.svg",
+    "cat-monitoren.svg",
+    "cat-networking.svg",
+    "cat-printers-en-scanners.svg",
+    "cat-randapparatuur.svg",
+    "cat-telefonie.svg",
+    "cat-telefooncentrales.svg",
+    "cat-thuiswerken.svg",
+    "cat-toestellen.svg",
+    "cat-xelion.svg"
+   ],
+   "files": {
+    "cat-beveiliging.svg": {
+     "name": "cat-beveiliging.svg",
+     "blob": "56bb769f73797844b488ca5ca944668f",
+     "size": 627,
+     "type": "image/svg+xml"
+    },
+    "cat-computer-accessoires.svg": {
+     "name": "cat-computer-accessoires.svg",
+     "blob": "d5d83a51854c3665f75b02e46005a8c7",
+     "size": 707,
+     "type": "image/svg+xml"
+    },
+    "cat-computer.svg": {
+     "name": "cat-computer.svg",
+     "blob": "ffc2da9e09fa2cea39757b4796eee4c4",
+     "size": 707,
+     "type": "image/svg+xml"
+    },
+    "cat-headsets.svg": {
+     "name": "cat-headsets.svg",
+     "blob": "572d3e14bc460843243b1eb89d62c0f1",
+     "size": 808,
+     "type": "image/svg+xml"
+    },
+    "cat-huishoudelijk.svg": {
+     "name": "cat-huishoudelijk.svg",
+     "blob": "c968543c2398951749cda3f63c464a88",
+     "size": 558,
+     "type": "image/svg+xml"
+    },
+    "cat-monitoren.svg": {
+     "name": "cat-monitoren.svg",
+     "blob": "df9abf2068e1c256231af0f8ff912a40",
+     "size": 981,
+     "type": "image/svg+xml"
+    },
+    "cat-networking.svg": {
+     "name": "cat-networking.svg",
+     "blob": "c46e10faec9cbe644e72bc50f839aa1e",
+     "size": 835,
+     "type": "image/svg+xml"
+    },
+    "cat-printers-en-scanners.svg": {
+     "name": "cat-printers-en-scanners.svg",
+     "blob": "d1224d83eb41f6cffc1f8ab16f566f35",
+     "size": 985,
+     "type": "image/svg+xml"
+    },
+    "cat-randapparatuur.svg": {
+     "name": "cat-randapparatuur.svg",
+     "blob": "77feca3bdad62ce95d48b4eca1f9aece",
+     "size": 981,
+     "type": "image/svg+xml"
+    },
+    "cat-telefonie.svg": {
+     "name": "cat-telefonie.svg",
+     "blob": "f5383be927600ddf1540cd271882592f",
+     "size": 1007,
+     "type": "image/svg+xml"
+    },
+    "cat-telefooncentrales.svg": {
+     "name": "cat-telefooncentrales.svg",
+     "blob": "e08684f5b859cb47655a901b270257d8",
+     "size": 566,
+     "type": "image/svg+xml"
+    },
+    "cat-thuiswerken.svg": {
+     "name": "cat-thuiswerken.svg",
+     "blob": "a200e35e1e31043ee2798edbcb83e74b",
+     "size": 1144,
+     "type": "image/svg+xml"
+    },
+    "cat-toestellen.svg": {
+     "name": "cat-toestellen.svg",
+     "blob": "a79b833310613c342a59f9cadf56fcfe",
+     "size": 1007,
+     "type": "image/svg+xml"
+    },
+    "cat-xelion.svg": {
+     "name": "cat-xelion.svg",
+     "blob": "2e97bfbc4682de0e94c5fd0e32b7b081",
+     "size": 1504,
+     "type": "image/svg+xml"
+    }
+   }
+  },
+  "Iconen": {
+   "name": "Iconen",
+   "tile": "xs",
+   "order": [
+    "check-small.svg",
+    "check.svg",
+    "cross.svg",
+    "footer-instagram.svg",
+    "footer-linkedin.svg",
+    "icon-avondverzending.svg",
+    "recycle.svg",
+    "tabler/adjustments.svg",
+    "tabler/alert.svg",
+    "tabler/arrow.svg",
+    "tabler/arrowLeft.svg",
+    "tabler/arrowRight.svg",
+    "tabler/bolt.svg",
+    "tabler/bookmark.svg",
+    "tabler/building.svg",
+    "tabler/camera.svg",
+    "tabler/cart.svg",
+    "tabler/chat.svg",
+    "tabler/check.svg",
+    "tabler/chevronDown.svg",
+    "tabler/chevronLeft.svg",
+    "tabler/chevronRight.svg",
+    "tabler/clock.svg",
+    "tabler/cloud.svg",
+    "tabler/device.svg",
+    "tabler/diamond.svg",
+    "tabler/euro.svg",
+    "tabler/headset.svg",
+    "tabler/heart.svg",
+    "tabler/info.svg",
+    "tabler/mail.svg",
+    "tabler/menu.svg",
+    "tabler/moodEmpty.svg",
+    "tabler/moon.svg",
+    "tabler/phone.svg",
+    "tabler/photoOff.svg",
+    "tabler/playerNext.svg",
+    "tabler/recycle.svg",
+    "tabler/search.svg",
+    "tabler/settings.svg",
+    "tabler/shield.svg",
+    "tabler/spinner.svg",
+    "tabler/star.svg",
+    "tabler/starFilled.svg",
+    "tabler/sun.svg",
+    "tabler/thumb.svg",
+    "tabler/thumbUp.svg",
+    "tabler/tool.svg",
+    "tabler/truck.svg",
+    "tabler/user.svg",
+    "tabler/warning.svg",
+    "tabler/wifi.svg",
+    "tabler/wrench.svg",
+    "tabler/x.svg",
+    "tabler/zoomIn.svg",
+    "tabler/zoomOut.svg"
+   ],
+   "files": {
+    "check-small.svg": {
+     "name": "check-small.svg",
+     "blob": "b9ca61c9187edea29885e848cc692486",
+     "size": 393,
+     "type": "image/svg+xml"
+    },
+    "check.svg": {
+     "name": "check.svg",
+     "blob": "43c4bbe5289dc60519284471926e21dc",
+     "size": 423,
+     "type": "image/svg+xml"
+    },
+    "cross.svg": {
+     "name": "cross.svg",
+     "blob": "6467b434bfee5c54d6b364399340d9b3",
+     "size": 327,
+     "type": "image/svg+xml"
+    },
+    "footer-instagram.svg": {
+     "name": "footer-instagram.svg",
+     "blob": "244393bff8a5f046e7e1996984767cfc",
+     "size": 700,
+     "type": "image/svg+xml"
+    },
+    "footer-linkedin.svg": {
+     "name": "footer-linkedin.svg",
+     "blob": "5858f0c313dffb132056793f48b856e9",
+     "size": 997,
+     "type": "image/svg+xml"
+    },
+    "icon-avondverzending.svg": {
+     "name": "icon-avondverzending.svg",
+     "blob": "c209a60916c7f24a822b983ec35622e0",
+     "size": 2865,
+     "type": "image/svg+xml"
+    },
+    "recycle.svg": {
+     "name": "recycle.svg",
+     "blob": "8fb2fb2cd9038664953f47952f8a114e",
+     "size": 586,
+     "type": "image/svg+xml"
+    },
+    "tabler/adjustments.svg": {
+     "name": "tabler/adjustments.svg",
+     "blob": "6782813127335ee8c04da7ec40651450",
+     "size": 504,
+     "type": "image/svg+xml"
+    },
+    "tabler/alert.svg": {
+     "name": "tabler/alert.svg",
+     "blob": "251244029e08a983c43cc5e29e5f9ad4",
+     "size": 389,
+     "type": "image/svg+xml"
+    },
+    "tabler/arrow.svg": {
+     "name": "tabler/arrow.svg",
+     "blob": "c69adc7bd99926af378dd6084277ea12",
+     "size": 266,
+     "type": "image/svg+xml"
+    },
+    "tabler/arrowLeft.svg": {
+     "name": "tabler/arrowLeft.svg",
+     "blob": "c4f9ed0f3df1708dbb56a8bcd0779925",
+     "size": 265,
+     "type": "image/svg+xml"
+    },
+    "tabler/arrowRight.svg": {
+     "name": "tabler/arrowRight.svg",
+     "blob": "1ad76e9c8662cebae1b7ec9724ff3ad7",
+     "size": 266,
+     "type": "image/svg+xml"
+    },
+    "tabler/bolt.svg": {
+     "name": "tabler/bolt.svg",
+     "blob": "2a2b11014fe535b8b917f1d36052f693",
+     "size": 235,
+     "type": "image/svg+xml"
+    },
+    "tabler/bookmark.svg": {
+     "name": "tabler/bookmark.svg",
+     "blob": "a41edbcff74cbc231e2d6b9999f1696d",
+     "size": 254,
+     "type": "image/svg+xml"
+    },
+    "tabler/building.svg": {
+     "name": "tabler/building.svg",
+     "blob": "c5d9765ab8188fb5fd393ad7c5c7bd18",
+     "size": 433,
+     "type": "image/svg+xml"
+    },
+    "tabler/camera.svg": {
+     "name": "tabler/camera.svg",
+     "blob": "a97ddea237ab7a2fc3c70a5ef619e375",
+     "size": 389,
+     "type": "image/svg+xml"
+    },
+    "tabler/cart.svg": {
+     "name": "tabler/cart.svg",
+     "blob": "d0a0a8d02f983b357e709691d7bcef95",
+     "size": 358,
+     "type": "image/svg+xml"
+    },
+    "tabler/chat.svg": {
+     "name": "tabler/chat.svg",
+     "blob": "a00ad6dfcb2a8cae15db735f2c59cc34",
+     "size": 374,
+     "type": "image/svg+xml"
+    },
+    "tabler/check.svg": {
+     "name": "tabler/check.svg",
+     "blob": "234d1c968aa33fb1355d5240d2918af3",
+     "size": 216,
+     "type": "image/svg+xml"
+    },
+    "tabler/chevronDown.svg": {
+     "name": "tabler/chevronDown.svg",
+     "blob": "722616d55455a4375c6ce21535b63e24",
+     "size": 213,
+     "type": "image/svg+xml"
+    },
+    "tabler/chevronLeft.svg": {
+     "name": "tabler/chevronLeft.svg",
+     "blob": "9683a39743a5f24c4974638e5cb787b2",
+     "size": 214,
+     "type": "image/svg+xml"
+    },
+    "tabler/chevronRight.svg": {
+     "name": "tabler/chevronRight.svg",
+     "blob": "1d0b41b91cdb5f36bd7f0bee9e357626",
+     "size": 213,
+     "type": "image/svg+xml"
+    },
+    "tabler/clock.svg": {
+     "name": "tabler/clock.svg",
+     "blob": "5858c6ea242d60909728719f6bd0caae",
+     "size": 265,
+     "type": "image/svg+xml"
+    },
+    "tabler/cloud.svg": {
+     "name": "tabler/cloud.svg",
+     "blob": "fd1c4ba10c8dbefbd4c86dca0ea307b9",
+     "size": 459,
+     "type": "image/svg+xml"
+    },
+    "tabler/device.svg": {
+     "name": "tabler/device.svg",
+     "blob": "0323ae874ad674459a470573ae482a10",
+     "size": 355,
+     "type": "image/svg+xml"
+    },
+    "tabler/diamond.svg": {
+     "name": "tabler/diamond.svg",
+     "blob": "192b09983351d3caeaa00ef4edfb4c21",
+     "size": 290,
+     "type": "image/svg+xml"
+    },
+    "tabler/euro.svg": {
+     "name": "tabler/euro.svg",
+     "blob": "c588ba7e09039fd919d88c31ee2687bd",
+     "size": 255,
+     "type": "image/svg+xml"
+    },
+    "tabler/headset.svg": {
+     "name": "tabler/headset.svg",
+     "blob": "ec2ef6829602bb2d1bfec5569b8ce6a3",
+     "size": 458,
+     "type": "image/svg+xml"
+    },
+    "tabler/heart.svg": {
+     "name": "tabler/heart.svg",
+     "blob": "d93ba606c85febf86eedc3130286dd19",
+     "size": 276,
+     "type": "image/svg+xml"
+    },
+    "tabler/info.svg": {
+     "name": "tabler/info.svg",
+     "blob": "bf9dcf7137e6d065fa601a179fc09000",
+     "size": 293,
+     "type": "image/svg+xml"
+    },
+    "tabler/mail.svg": {
+     "name": "tabler/mail.svg",
+     "blob": "d7aa57c9591c194b3640a1731e23f654",
+     "size": 309,
+     "type": "image/svg+xml"
+    },
+    "tabler/menu.svg": {
+     "name": "tabler/menu.svg",
+     "blob": "523f254e09eb4992c63654f9a8821013",
+     "size": 265,
+     "type": "image/svg+xml"
+    },
+    "tabler/moodEmpty.svg": {
+     "name": "tabler/moodEmpty.svg",
+     "blob": "a703b856ca6907c6ae4cf6504d23d091",
+     "size": 322,
+     "type": "image/svg+xml"
+    },
+    "tabler/moon.svg": {
+     "name": "tabler/moon.svg",
+     "blob": "d77cae7f66425eb8ef8345f0741e265b",
+     "size": 284,
+     "type": "image/svg+xml"
+    },
+    "tabler/phone.svg": {
+     "name": "tabler/phone.svg",
+     "blob": "d1df4ad1e7a17f36275dfc72bd04fba9",
+     "size": 300,
+     "type": "image/svg+xml"
+    },
+    "tabler/photoOff.svg": {
+     "name": "tabler/photoOff.svg",
+     "blob": "20130432d99fdadfc5f674b6047d8d9d",
+     "size": 502,
+     "type": "image/svg+xml"
+    },
+    "tabler/playerNext.svg": {
+     "name": "tabler/playerNext.svg",
+     "blob": "4f5049f5c8d5eaa05fe707171a101554",
+     "size": 255,
+     "type": "image/svg+xml"
+    },
+    "tabler/recycle.svg": {
+     "name": "tabler/recycle.svg",
+     "blob": "f228dbe8f815336921624a09aaeb0e37",
+     "size": 523,
+     "type": "image/svg+xml"
+    },
+    "tabler/search.svg": {
+     "name": "tabler/search.svg",
+     "blob": "968364d292cfe6e6bc080561f9c6de84",
+     "size": 266,
+     "type": "image/svg+xml"
+    },
+    "tabler/settings.svg": {
+     "name": "tabler/settings.svg",
+     "blob": "bb95d34dd43924a72b5795b7a673c70b",
+     "size": 774,
+     "type": "image/svg+xml"
+    },
+    "tabler/shield.svg": {
+     "name": "tabler/shield.svg",
+     "blob": "33f48c6371533eec43f027bd88158891",
+     "size": 331,
+     "type": "image/svg+xml"
+    },
+    "tabler/spinner.svg": {
+     "name": "tabler/spinner.svg",
+     "blob": "8c50de3c838578361acb89c24201e5e1",
+     "size": 219,
+     "type": "image/svg+xml"
+    },
+    "tabler/star.svg": {
+     "name": "tabler/star.svg",
+     "blob": "98cfebe732140ec62649f40c8f071afd",
+     "size": 318,
+     "type": "image/svg+xml"
+    },
+    "tabler/starFilled.svg": {
+     "name": "tabler/starFilled.svg",
+     "blob": "f3e81728b65a3201784d6cc52170562e",
+     "size": 406,
+     "type": "image/svg+xml"
+    },
+    "tabler/sun.svg": {
+     "name": "tabler/sun.svg",
+     "blob": "372b855435c552a85984bb88c8bad83a",
+     "size": 342,
+     "type": "image/svg+xml"
+    },
+    "tabler/thumb.svg": {
+     "name": "tabler/thumb.svg",
+     "blob": "b09a68a939668fe5d77602b0f9a5acd5",
+     "size": 350,
+     "type": "image/svg+xml"
+    },
+    "tabler/thumbUp.svg": {
+     "name": "tabler/thumbUp.svg",
+     "blob": "f09fc0c384c28dbffc843c482eccb7e8",
+     "size": 350,
+     "type": "image/svg+xml"
+    },
+    "tabler/tool.svg": {
+     "name": "tabler/tool.svg",
+     "blob": "2d6e30941dc0b66b6e8889fec9af7b94",
+     "size": 283,
+     "type": "image/svg+xml"
+    },
+    "tabler/truck.svg": {
+     "name": "tabler/truck.svg",
+     "blob": "68673f47f899ad24c3813de2206fe091",
+     "size": 367,
+     "type": "image/svg+xml"
+    },
+    "tabler/user.svg": {
+     "name": "tabler/user.svg",
+     "blob": "a7e44e20d058fab499774e7c245ac3f7",
+     "size": 366,
+     "type": "image/svg+xml"
+    },
+    "tabler/warning.svg": {
+     "name": "tabler/warning.svg",
+     "blob": "f09c018e04320cd38c7974690be72bce",
+     "size": 389,
+     "type": "image/svg+xml"
+    },
+    "tabler/wifi.svg": {
+     "name": "tabler/wifi.svg",
+     "blob": "b7f12aa424fabd3642a8ebbfdb971dc6",
+     "size": 373,
+     "type": "image/svg+xml"
+    },
+    "tabler/wrench.svg": {
+     "name": "tabler/wrench.svg",
+     "blob": "88e4bca04597a1201fd849b1c35ca30c",
+     "size": 283,
+     "type": "image/svg+xml"
+    },
+    "tabler/x.svg": {
+     "name": "tabler/x.svg",
+     "blob": "c91d16735342392134821f57619669cd",
+     "size": 240,
+     "type": "image/svg+xml"
+    },
+    "tabler/zoomIn.svg": {
+     "name": "tabler/zoomIn.svg",
+     "blob": "d04b3f2ac892142e6cafef8552c1c9f7",
+     "size": 320,
+     "type": "image/svg+xml"
+    },
+    "tabler/zoomOut.svg": {
+     "name": "tabler/zoomOut.svg",
+     "blob": "e2be1eeecb2e7a75c50cd25f9984d5c2",
+     "size": 293,
+     "type": "image/svg+xml"
+    }
+   }
+  },
+  "Energielabels": {
+   "name": "Energielabels",
+   "tile": "s",
+   "order": [
+    "energy-label-a.svg",
+    "energy-label-b.svg",
+    "energy-label-c.svg",
+    "energy-label-d.svg",
+    "energy-label-e.svg",
+    "energy-label-f.svg",
+    "energy-label-g.svg"
+   ],
+   "files": {
+    "energy-label-a.svg": {
+     "name": "energy-label-a.svg",
+     "blob": "5d1467880a210f0dc920fa4b5dfb1e54",
+     "size": 2853,
+     "type": "image/svg+xml"
+    },
+    "energy-label-b.svg": {
+     "name": "energy-label-b.svg",
+     "blob": "df4e94051424d9b4ac2664e7b39c39ff",
+     "size": 2853,
+     "type": "image/svg+xml"
+    },
+    "energy-label-c.svg": {
+     "name": "energy-label-c.svg",
+     "blob": "8f298029190400ba6f42ab1af89940a6",
+     "size": 2853,
+     "type": "image/svg+xml"
+    },
+    "energy-label-d.svg": {
+     "name": "energy-label-d.svg",
+     "blob": "d32c3f3f449c0f2529103b8950f02d05",
+     "size": 2853,
+     "type": "image/svg+xml"
+    },
+    "energy-label-e.svg": {
+     "name": "energy-label-e.svg",
+     "blob": "d39add5aeedb5bd22300ffd6a27a6c43",
+     "size": 2853,
+     "type": "image/svg+xml"
+    },
+    "energy-label-f.svg": {
+     "name": "energy-label-f.svg",
+     "blob": "866a5e0f6402a0e6c3c2e989a9bdbfc4",
+     "size": 2853,
+     "type": "image/svg+xml"
+    },
+    "energy-label-g.svg": {
+     "name": "energy-label-g.svg",
+     "blob": "1c057b31a59d92a1ea81a35cb2c73523",
+     "size": 2853,
+     "type": "image/svg+xml"
+    }
+   }
+  },
+  "Betaalmethoden": {
+   "name": "Betaalmethoden",
+   "tile": "s",
+   "order": [
+    "applepay.svg",
+    "bancontact.svg",
+    "banktransfer.svg",
+    "creditcard.svg",
+    "ideal.svg",
+    "in3.svg",
+    "klarna.svg",
+    "paypal.svg"
+   ],
+   "files": {
+    "applepay.svg": {
+     "name": "applepay.svg",
+     "blob": "5f9b698b82c4434c07da2b33c5959c41",
+     "size": 3215,
+     "type": "image/svg+xml"
+    },
+    "bancontact.svg": {
+     "name": "bancontact.svg",
+     "blob": "013aaaea9dbab046c05780605bcde3c9",
+     "size": 740,
+     "type": "image/svg+xml"
+    },
+    "banktransfer.svg": {
+     "name": "banktransfer.svg",
+     "blob": "c352cfa0d92c64190346e6f56916cd58",
+     "size": 4459,
+     "type": "image/svg+xml"
+    },
+    "creditcard.svg": {
+     "name": "creditcard.svg",
+     "blob": "d7d0f5fb4d9d0635fd4b131c1f7cf663",
+     "size": 4321,
+     "type": "image/svg+xml"
+    },
+    "ideal.svg": {
+     "name": "ideal.svg",
+     "blob": "0290438782eb195148c941edca8180b7",
+     "size": 6249,
+     "type": "image/svg+xml"
+    },
+    "in3.svg": {
+     "name": "in3.svg",
+     "blob": "b27677233f47c5e0e5403b81470f3c9c",
+     "size": 2867,
+     "type": "image/svg+xml"
+    },
+    "klarna.svg": {
+     "name": "klarna.svg",
+     "blob": "f4b8affc88e6afc97adf007a3a1b82c1",
+     "size": 2169,
+     "type": "image/svg+xml"
+    },
+    "paypal.svg": {
+     "name": "paypal.svg",
+     "blob": "8ab74250a8dd13eb81067be545ad287c",
+     "size": 2033,
+     "type": "image/svg+xml"
+    }
+   }
+  },
+  "Beeld": {
+   "name": "Beeld",
+   "tile": "l",
+   "order": [
+    "brand-0.jpg",
+    "brand-1.jpg",
+    "brand-2.jpg",
+    "brand-3.jpg",
+    "brand-4.jpg",
+    "brand-5.jpg",
+    "brand-6.jpg",
+    "brand-7.jpg",
+    "index-brand-jabra.png",
+    "index-brand-logitech.png",
+    "index-brand-tplink.png",
+    "index-brand-ubiquiti.png",
+    "xelion-fancy.svg"
+   ],
+   "files": {
+    "brand-0.jpg": {
+     "name": "brand-0.jpg",
+     "blob": "715f2fb659cb24c753cda1b4e8afa70e",
+     "size": 90941,
+     "type": "image/jpeg"
+    },
+    "brand-1.jpg": {
+     "name": "brand-1.jpg",
+     "blob": "c1b86a3230c7b385d6ee4fec4e8cd228",
+     "size": 120775,
+     "type": "image/jpeg"
+    },
+    "brand-2.jpg": {
+     "name": "brand-2.jpg",
+     "blob": "12b7ef36e6f4e7fd3de56bf5f79c7f03",
+     "size": 66542,
+     "type": "image/jpeg"
+    },
+    "brand-3.jpg": {
+     "name": "brand-3.jpg",
+     "blob": "4585ee2a1175020569f97bbcc38aaad9",
+     "size": 74894,
+     "type": "image/jpeg"
+    },
+    "brand-4.jpg": {
+     "name": "brand-4.jpg",
+     "blob": "6ce74f89c9eb80d97cf4ee3ef7f74d62",
+     "size": 122388,
+     "type": "image/jpeg"
+    },
+    "brand-5.jpg": {
+     "name": "brand-5.jpg",
+     "blob": "4ac17f6e838df6ffe86d604dd8c9d959",
+     "size": 87992,
+     "type": "image/jpeg"
+    },
+    "brand-6.jpg": {
+     "name": "brand-6.jpg",
+     "blob": "8f581f0f7510989750a944073399758f",
+     "size": 104224,
+     "type": "image/jpeg"
+    },
+    "brand-7.jpg": {
+     "name": "brand-7.jpg",
+     "blob": "bf985c00173d7e5ecb169891ae4852a4",
+     "size": 72532,
+     "type": "image/jpeg"
+    },
+    "index-brand-jabra.png": {
+     "name": "index-brand-jabra.png",
+     "blob": "7512aae26d71174c5cea0ed9e1ef517e",
+     "size": 52550,
+     "type": "image/png"
+    },
+    "index-brand-logitech.png": {
+     "name": "index-brand-logitech.png",
+     "blob": "f39759cc6bd4100fb5bea2af0af52831",
+     "size": 129471,
+     "type": "image/png"
+    },
+    "index-brand-tplink.png": {
+     "name": "index-brand-tplink.png",
+     "blob": "71a0b6c015bbabef202912ca84f47dcb",
+     "size": 184165,
+     "type": "image/png"
+    },
+    "index-brand-ubiquiti.png": {
+     "name": "index-brand-ubiquiti.png",
+     "blob": "5d409fbea91af61416836de54579fce7",
+     "size": 87778,
+     "type": "image/png"
+    },
+    "xelion-fancy.svg": {
+     "name": "xelion-fancy.svg",
+     "blob": "07421e0304ea8835910b9d9c0d179d5d",
+     "size": 5896,
+     "type": "image/svg+xml"
+    }
+   }
+  }
+ },
+ "blobs": {},
+ "docs": {
+  "readme": "project/README.md",
+  "sections": []
+ },
+ "lastChange": {
+  "by": "Sem Goedknegt",
+  "at": "2026-10-29T10:10:06Z",
+  "via": "Claude Code",
+  "note": "Eerste versie uit globalwire/storefront@67bf9b2, backoffice-winkelpagina's en het Lightspeed-thema"
+ }
+}

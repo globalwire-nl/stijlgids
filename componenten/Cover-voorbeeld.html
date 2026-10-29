@@ -1,0 +1,58 @@
+<!-- @dsCard height=288 -->
+<!doctype html>
+<html data-theme="light" lang="nl">
+<head>
+<meta charset="utf-8">
+<title>DectDirect</title>
+<style>
+  html, body { margin:0; height:100%; }
+  body { background:var(--color-page); color:var(--color-neutral-800); font-family:var(--font-sans); overflow:hidden; }
+  .cover { position:relative; width:960px; height:288px; overflow:hidden; }
+  .art { position:absolute; top:0; left:480px; width:480px; height:288px; overflow:hidden; }
+  .art svg { display:block; width:480px; height:288px; }
+  .violet { fill:var(--color-violet-900); }
+  .yellow { fill:var(--color-yellow-500); }
+  .sky { fill:var(--color-sky-500); }
+  .tint { fill:var(--color-neutral-100); }
+  .slab { rx:var(--radius-xl); }
+  .blk { rx:var(--radius-md); }
+  .pill { rx:12px; }
+  .words { position:absolute; left:var(--spacing-10); bottom:var(--spacing-10); max-width:440px; }
+  .name { margin:0; font-size:72px; line-height:.92; font-weight:700; letter-spacing:-.01em; color:var(--color-neutral-800); }
+  .tag { margin:var(--spacing-3) 0 0 2px; font-size:14px; line-height:20px; color:var(--color-neutral-500); }
+</style>
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../fonts/barlow.css">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../components/bundle.css">
+</head>
+<body>
+<div class="cover">
+<div class="art" aria-hidden="true">
+<svg viewBox="0 0 480 288" width="480" height="288">
+<!--
+  blocks      color-violet-900 192x264 slab bled off the top (the brand's violet, largest) · color-yellow-500 128x120 (the buy colour) · color-sky-500 144x200 bled off the right (links, the newsletter gradient) · color-neutral-100 128x64 tint (the menu ground) - about 40% of 960x288
+  arrangement one tall violet slab with satellites, bottoms on one line spacing-10 above the edge, spacing-4 gutters
+  pattern     literal motif: the D of the logo mark as two nested half-rounds cut into the slab (yellow, then violet), three category discs (r 12) on the tint, one hero pill on the yellow block
+  scales      sides in spacing-4 multiples; gutters spacing-4; disc pitch spacing-8; slab radius-xl, blocks radius-md, pill rx half its 24px height
+-->
+<rect class="violet slab" x="0" y="-16" width="192" height="264" rx="12"/>
+<path class="yellow" d="M40 72 h40 a68 68 0 0 1 0 136 h-40 z"/>
+<path class="violet" d="M72 104 h8 a36 36 0 0 1 0 72 h-8 z"/>
+<rect class="tint blk" x="208" y="48" width="128" height="64" rx="6"/>
+<circle class="violet" cx="240" cy="80" r="12"/>
+<circle class="violet" cx="272" cy="80" r="12"/>
+<circle class="violet" cx="304" cy="80" r="12"/>
+<rect class="yellow blk" x="208" y="128" width="128" height="120" rx="6"/>
+<rect class="violet pill" x="224" y="208" width="80" height="24" rx="12"/>
+<rect class="sky blk" x="352" y="48" width="144" height="200" rx="6"/>
+</svg>
+</div>
+<div class="words">
+<h1 class="name">DectDirect</h1>
+<p class="tag">Alles voor jouw perfecte werkplek.</p>
+</div>
+</div>
+</body>
+</html>

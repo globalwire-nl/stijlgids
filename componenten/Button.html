@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Button · DectDirect stijlgids</title>
+<link rel="icon" href="../assets/Logos/favicon.png">
+<link rel="stylesheet" href="../fonts/barlow.css">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../site.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="site-logo" href="../index.html" aria-label="DectDirect stijlgids">
+    <picture><source srcset="../assets/Logos/logo-white.svg" media="(prefers-color-scheme: dark)"><img src="../assets/Logos/logo.svg" alt="DectDirect" width="160" height="40"></picture>
+    <span>Stijlgids</span>
+  </a>
+  <nav class="site-nav"><a href="../index.html">Merkboek</a><a href="../tokens.html">Tokens</a><a href="../beeld.html">Beeld</a><a href="../index.html#componenten">Componenten</a></nav>
+</header>
+<main class="site-main">
+<p class="crumbs"><a href="../index.html#componenten">Componenten</a> › Acties</p>
+<h1>Button</h1>
+<h2 id="voorbeeld" class="sr">Voorbeeld</h2>
+<div class="previews">
+<figure class="preview" id="licht"><figcaption><span>Licht</span><a href="Button-voorbeeld.html">Los openen</a></figcaption><iframe class="preview-frame" src="Button-voorbeeld.html" title="Voorbeeld van Button, licht" sandbox="allow-same-origin" referrerpolicy="no-referrer" loading="lazy" style="height: 300px"></iframe></figure>
+<figure class="preview" id="donker"><figcaption><span>Donker</span><a href="Button-voorbeeld-donker.html">Los openen</a></figcaption><iframe class="preview-frame" src="Button-voorbeeld-donker.html" title="Voorbeeld van Button, donker" sandbox="allow-same-origin" referrerpolicy="no-referrer" loading="lazy" style="height: 300px"></iframe></figure>
+</div>
+<article class="prose">
+<p>Knoppen van de winkel: geel voor elke actie die iets koopt of verstuurt, en een paar rustige varianten daaromheen.</p>
+<h2 id="gebruik">Gebruik</h2>
+<ul>
+<li><code>dd-btn dd-btn-buy</code>: elke koop- of verstuuractie (Afrekenen, Naar betaling, Aanmelden, Geef me een seintje). <code>color-yellow-500</code> met label in <code>color-violet-900</code>, hover <code>color-yellow-400</code>, <code>radius-md</code>, bold. Bron: <code>bg-yellow-500 hover:bg-yellow-400 text-violet-900 font-bold rounded-md px-5 py-2.5</code>.</li>
+<li><code>dd-btn-buy-lg</code>: de volle-breedte koopknop op de productpagina (<code>py-3 text-lg w-full</code>), met het <code>cart</code>-icoon ervoor.</li>
+<li><code>dd-btn-banner</code>: de grote knop in donkere banners (Tweedekans, Xelion): <code>color-yellow-400</code>, hover <code>color-yellow-300</code>, <code>px-8 py-3</code>.</li>
+<li><code>dd-btn-pill</code>: snelkoppelingen in de hero, <code>radius-full</code>. Naast de gele pillen één omlijnde pil op violet: <code>dd-btn-pill-ghost</code> (<code>ring-1 ring-white/40</code>).</li>
+<li><code>dd-btn-outline</code>: secundaire actie onder de koopknop (verlanglijst): tekst <code>color-sky-500</code>, rand <code>color-neutral-200</code>, hover-rand <code>color-brand</code>.</li>
+<li><code>dd-btn-quiet</code> en <code>dd-btn-disabled</code> komen van de Rails-pagina&#x27;s (kortingscode toepassen, Afrekenen zonder leverbare regels).</li>
+</ul>
+<h2 id="wat-de-gebruiker-levert">Wat de gebruiker levert</h2>
+<p>Een <code>&lt;a&gt;</code> of <code>&lt;button&gt;</code> met de tekst; een icoon is een 24px Tabler-icoon in <code>currentColor</code> vóór de tekst.</p>
+<h2 id="niet-doen">Niet doen</h2>
+<ul>
+<li>Geen gele knop voor iets dat niet koopt of verstuurt; geen tweede gele knop naast de eerste.</li>
+<li>Geen witte tekst op geel. Het label is altijd <code>color-violet-900</code> (5,8:1).</li>
+<li><code>dd-btn-outline</code> gebruikt <code>color-sky-500</code> als tekst: 2,7:1 in licht, onder de norm (zo in de bron).</li>
+</ul>
+</article>
+<section>
+<h2 id="andere-componenten">Andere componenten</h2>
+<div class="component-groups"><div class="component-group"><h3>Acties</h3><ul class="chips"><li><a href="AddToCart.html">AddToCart</a></li><li><a href="Button.html" aria-current=page>Button</a></li><li><a href="QuantityStepper.html">QuantityStepper</a></li></ul></div><div class="component-group"><h3>Afrekenen</h3><ul class="chips"><li><a href="PaymentMethods.html">PaymentMethods</a></li></ul></div><div class="component-group"><h3>Categorie</h3><ul class="chips"><li><a href="CategoryTile.html">CategoryTile</a></li></ul></div><div class="component-group"><h3>Formulieren</h3><ul class="chips"><li><a href="Field.html">Field</a></li></ul></div><div class="component-group"><h3>Inhoud</h3><ul class="chips"><li><a href="PromoBanner.html">PromoBanner</a></li><li><a href="UspList.html">UspList</a></li></ul></div><div class="component-group"><h3>Navigatie</h3><ul class="chips"><li><a href="Breadcrumbs.html">Breadcrumbs</a></li><li><a href="Footer.html">Footer</a></li><li><a href="Header.html">Header</a></li><li><a href="MainMenu.html">MainMenu</a></li><li><a href="Pagination.html">Pagination</a></li></ul></div><div class="component-group"><h3>Prijs</h3><ul class="chips"><li><a href="LastStockPrice.html">LastStockPrice</a></li><li><a href="Price.html">Price</a></li></ul></div><div class="component-group"><h3>Product</h3><ul class="chips"><li><a href="CompactProductCard.html">CompactProductCard</a></li><li><a href="ProductCard.html">ProductCard</a></li></ul></div><div class="component-group"><h3>Status</h3><ul class="chips"><li><a href="Badge.html">Badge</a></li><li><a href="StockBadge.html">StockBadge</a></li></ul></div><div class="component-group"><h3>Overig</h3><ul class="chips"><li><a href="Cover.html">Cover</a></li></ul></div></div>
+</section>
+<script>
+// The frames are same-origin: grow each one to its content, so nothing is cut
+// off at phone width. Without script the export's card height stays.
+document.querySelectorAll('iframe.preview-frame').forEach(function (frame) {
+  function fit() {
+    try {
+      var win = frame.contentWindow, doc = frame.contentDocument;
+      var scrollbar = win.innerHeight - doc.documentElement.clientHeight;
+      var bottom = 0;
+      Array.prototype.forEach.call(doc.body.children, function (el) {
+        bottom = Math.max(bottom, el.getBoundingClientRect().bottom + win.scrollY + parseFloat(win.getComputedStyle(el).marginBottom || 0));
+      });
+      if (bottom > 0) frame.style.height = Math.ceil(bottom + scrollbar) + 'px';
+    } catch (e) {}
+  }
+  frame.addEventListener('load', function () {
+    fit();
+    try { new ResizeObserver(fit).observe(frame.contentDocument.body); } catch (e) {}
+  });
+});
+</script>
+</main>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>PaymentMethods · DectDirect stijlgids</title>
+<link rel="icon" href="../assets/Logos/favicon.png">
+<link rel="stylesheet" href="../fonts/barlow.css">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../site.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="site-logo" href="../index.html" aria-label="DectDirect stijlgids">
+    <picture><source srcset="../assets/Logos/logo-white.svg" media="(prefers-color-scheme: dark)"><img src="../assets/Logos/logo.svg" alt="DectDirect" width="160" height="40"></picture>
+    <span>Stijlgids</span>
+  </a>
+  <nav class="site-nav"><a href="../index.html">Merkboek</a><a href="../tokens.html">Tokens</a><a href="../beeld.html">Beeld</a><a href="../index.html#componenten">Componenten</a></nav>
+</header>
+<main class="site-main">
+<p class="crumbs"><a href="../index.html#componenten">Componenten</a> › Afrekenen</p>
+<h1>PaymentMethods</h1>
+<h2 id="voorbeeld" class="sr">Voorbeeld</h2>
+<div class="previews">
+<figure class="preview" id="licht"><figcaption><span>Licht</span><a href="PaymentMethods-voorbeeld.html">Los openen</a></figcaption><iframe class="preview-frame" src="PaymentMethods-voorbeeld.html" title="Voorbeeld van PaymentMethods, licht" sandbox="allow-same-origin" referrerpolicy="no-referrer" loading="lazy" style="height: 330px"></iframe></figure>
+<figure class="preview" id="donker"><figcaption><span>Donker</span><a href="PaymentMethods-voorbeeld-donker.html">Los openen</a></figcaption><iframe class="preview-frame" src="PaymentMethods-voorbeeld-donker.html" title="Voorbeeld van PaymentMethods, donker" sandbox="allow-same-origin" referrerpolicy="no-referrer" loading="lazy" style="height: 330px"></iframe></figure>
+</div>
+<article class="prose">
+<p>Betaalkeuze in het afrekenen (Rails): de rij betaalmethode-logo&#x27;s onder de bestelknop, de keuze particulier/zakelijk en de betaalwijze voor klanten op rekening.</p>
+<h2 id="gebruik">Gebruik</h2>
+<ul>
+<li>Logo&#x27;s: Mollie&#x27;s eigen iconen uit <code>assets/Betaalmethoden</code>, elk met een eigen hoogte zodat ze even groot ogen (iDEAL 28px, Creditcard en PayPal 24px, Apple Pay en in3 20px, Bancontact 16px, Klarna en overboeking 14px). Voorafgegaan door &quot;Betalen met&quot; (<code>text-xs</code>). In donker krijgen ze samen een wit plaatje (<code>radius-md</code>), want een paar zijn zwart op transparant.</li>
+<li>&quot;Ik bestel als&quot;: twee keuzeknoppen met icoon; gekozen = <code>color-violet-900</code> vlak met wit, anders rand 2px <code>color-neutral-300</code>. Focus: ring 2px <code>color-violet-500</code> met 2px tussenruimte.</li>
+<li>Betaalwijze verschijnt alleen voor klanten met krediet: &quot;Online betalen&quot; of &quot;Koop op rekening&quot;, met de termijn en het beschikbare krediet in <code>color-neutral-500</code>. Past de bestelling niet in het krediet, dan blijft de optie zichtbaar maar uit (<code>color-neutral-400</code>) met de reden.</li>
+<li>Op de productpagina staat een regel &quot;Veilig achteraf betalen via Klarna of Billink&quot; met beide woordmerken in <code>currentColor</code>.</li>
+</ul>
+<h2 id="wat-de-gebruiker-levert">Wat de gebruiker levert</h2>
+<p>De lijst methodes die het afrekenen aanbiedt (<code>storefront_payment_methods</code>), en voor de rekening-optie krediet en termijn.</p>
+<h2 id="let-op">Let op</h2>
+<ul>
+<li>De Rails-pagina&#x27;s tekenen met de <code>shop-*</code>-kleuren (slate in licht). Dit voorbeeld gebruikt de storefront-tokens.</li>
+</ul>
+</article>
+<section>
+<h2 id="andere-componenten">Andere componenten</h2>
+<div class="component-groups"><div class="component-group"><h3>Acties</h3><ul class="chips"><li><a href="AddToCart.html">AddToCart</a></li><li><a href="Button.html">Button</a></li><li><a href="QuantityStepper.html">QuantityStepper</a></li></ul></div><div class="component-group"><h3>Afrekenen</h3><ul class="chips"><li><a href="PaymentMethods.html" aria-current=page>PaymentMethods</a></li></ul></div><div class="component-group"><h3>Categorie</h3><ul class="chips"><li><a href="CategoryTile.html">CategoryTile</a></li></ul></div><div class="component-group"><h3>Formulieren</h3><ul class="chips"><li><a href="Field.html">Field</a></li></ul></div><div class="component-group"><h3>Inhoud</h3><ul class="chips"><li><a href="PromoBanner.html">PromoBanner</a></li><li><a href="UspList.html">UspList</a></li></ul></div><div class="component-group"><h3>Navigatie</h3><ul class="chips"><li><a href="Breadcrumbs.html">Breadcrumbs</a></li><li><a href="Footer.html">Footer</a></li><li><a href="Header.html">Header</a></li><li><a href="MainMenu.html">MainMenu</a></li><li><a href="Pagination.html">Pagination</a></li></ul></div><div class="component-group"><h3>Prijs</h3><ul class="chips"><li><a href="LastStockPrice.html">LastStockPrice</a></li><li><a href="Price.html">Price</a></li></ul></div><div class="component-group"><h3>Product</h3><ul class="chips"><li><a href="CompactProductCard.html">CompactProductCard</a></li><li><a href="ProductCard.html">ProductCard</a></li></ul></div><div class="component-group"><h3>Status</h3><ul class="chips"><li><a href="Badge.html">Badge</a></li><li><a href="StockBadge.html">StockBadge</a></li></ul></div><div class="component-group"><h3>Overig</h3><ul class="chips"><li><a href="Cover.html">Cover</a></li></ul></div></div>
+</section>
+<script>
+// The frames are same-origin: grow each one to its content, so nothing is cut
+// off at phone width. Without script the export's card height stays.
+document.querySelectorAll('iframe.preview-frame').forEach(function (frame) {
+  function fit() {
+    try {
+      var win = frame.contentWindow, doc = frame.contentDocument;
+      var scrollbar = win.innerHeight - doc.documentElement.clientHeight;
+      var bottom = 0;
+      Array.prototype.forEach.call(doc.body.children, function (el) {
+        bottom = Math.max(bottom, el.getBoundingClientRect().bottom + win.scrollY + parseFloat(win.getComputedStyle(el).marginBottom || 0));
+      });
+      if (bottom > 0) frame.style.height = Math.ceil(bottom + scrollbar) + 'px';
+    } catch (e) {}
+  }
+  frame.addEventListener('load', function () {
+    fit();
+    try { new ResizeObserver(fit).observe(frame.contentDocument.body); } catch (e) {}
+  });
+});
+</script>
+</main>
+</body>
+</html>

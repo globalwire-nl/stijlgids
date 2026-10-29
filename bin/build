@@ -1,0 +1,596 @@
+#!/usr/bin/env python3
+"""Builds the static DectDirect style guide from the design-system export.
+
+Sources (kept exactly as exported): README.md, tokens.json, design-system.json,
+components/ and assets/. Hand-written: site.css, fonts/. Everything else at the
+repo root is generated here and committed, so GitHub Pages can serve main as is:
+
+  index.html                     brand book (README.md) and the component list
+  tokens.html                    colour swatches, type samples, the other tokens
+  beeld.html                     the asset groups with their READMEs
+  tokens.css                     tokens.json as CSS custom properties
+  componenten/<Name>.html        README and preview of one component
+  componenten/<Name>-voorbeeld.html          the preview, light
+  componenten/<Name>-voorbeeld-donker.html   the preview, dark
+
+Python 3 standard library only. The output depends on nothing but the files in
+the repo (no dates, sorted listings), so a rebuild reproduces it byte for byte.
+
+  bin/build           write the site
+  bin/build --check   build in memory and fail if the committed site differs
+"""
+
+import html
+import json
+import re
+import shutil
+import sys
+import unicodedata
+from pathlib import Path
+from urllib.parse import quote
+
+ROOT = Path(__file__).resolve().parent.parent
+SITE_TITLE = "DectDirect stijlgids"
+ROBOTS = '<meta name="robots" content="noindex, nofollow">'
+
+# Token values end up in style attributes and in tokens.css, so each one is
+# checked against the notation it should have; anything else stops the build.
+COLOR_VALUE = re.compile(r"\A(#[0-9a-fA-F]{3,8}|(oklch|rgb|rgba|hsl)\([\d.%\s/,-]+\))\Z", re.I)
+CSS_LENGTH = re.compile(r"\A\d+(\.\d+)?(rem|px|em)?\Z")
+CSS_VALUE = re.compile(r"\A[\w\s#.,%()/+-]+\Z")  # shadows, font stacks: no ; { } < > " '
+BLOB_REF = re.compile(r"/_blob/([0-9a-f]{32})")
+FONT_LINK = re.compile(r"<link[^>]+fonts\.(?:googleapis|gstatic)\.com[^>]*>\s*")
+
+
+def esc(text):
+    return html.escape(str(text), quote=True)
+
+
+def fail(message):
+    sys.exit(f"bin/build: {message}")
+
+
+# --- markdown ---------------------------------------------------------------
+# A small converter for what these READMEs use: ATX headings (with ids),
+# paragraphs, bullet and numbered lists (nested by indent, allowed straight
+# after a paragraph line), pipe tables, fenced code, blockquotes, rules, and
+# inline code, links, **bold** and *italic*. Raw HTML in the markdown is
+# escaped, never passed through.
+
+def slugify(text, seen):
+    text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode()
+    slug = re.sub(r"[^a-z0-9]+", "-", text.lower().replace("'", "")).strip("-") or "kop"
+    base, n = slug, 2
+    while slug in seen:
+        slug, n = f"{base}-{n}", n + 1
+    seen.add(slug)
+    return slug
+
+
+def safe_href(url):
+    url = html.unescape(url).strip()
+    if re.match(r"\A(https?://|mailto:|#|\.{0,2}/|[\w.-]+(/|\.\w+|#|\Z))", url) and not url.lower().startswith(("javascript:", "data:")):
+        return esc(url)
+    return None
+
+
+def inline(text):
+    codes = []
+
+    def keep_code(match):
+        codes.append(f"<code>{esc(match.group(2))}</code>")
+        return f"\x00{len(codes) - 1}\x00"
+
+    text = re.sub(r"(`+)(.+?)\1", keep_code, text)
+    text = esc(text)
+
+    def link(match):
+        href = safe_href(match.group(2))
+        return f'<a href="{href}">{match.group(1)}</a>' if href else match.group(0)
+
+    text = re.sub(r"\[([^\]]+)\]\(([^)\s]+)\)", link, text)
+    text = re.sub(r"\*\*(?=\S)(.+?)(?<=\S)\*\*", r"<strong>\1</strong>", text)
+    text = re.sub(r"__(?=\S)(.+?)(?<=\S)__", r"<strong>\1</strong>", text)
+    text = re.sub(r"(?<![\w*])\*(?=\S)(.+?)(?<=\S)\*(?![\w*])", r"<em>\1</em>", text)
+    text = re.sub(r"(?<![\w_])_(?=\S)(.+?)(?<=\S)_(?![\w_])", r"<em>\1</em>", text)
+    text = re.sub(r"  $", "<br>", text, flags=re.M)
+    return re.sub(r"\x00(\d+)\x00", lambda m: codes[int(m.group(1))], text)
+
+
+LIST_ITEM = re.compile(r"\A( *)([-*+]|\d+[.)]) +(.*)\Z")
+HEADING = re.compile(r"\A(#{1,6}) +(.*?)(?: +#+)?\s*\Z")
+FENCE = re.compile(r"\A *(```|~~~)")
+RULE = re.compile(r"\A *([-*_])( *\1){2,} *\Z")
+TABLE_SEP = re.compile(r"\A *\|? *:?-+:? *(\| *:?-+:? *)*\|? *\Z")
+
+
+def starts_block(line):
+    return bool(HEADING.match(line) or FENCE.match(line) or LIST_ITEM.match(line)
+                or line.lstrip().startswith(">") or RULE.match(line))
+
+
+def table_cells(line):
+    line = line.strip()
+    if line.startswith("|"):
+        line = line[1:]
+    if line.endswith("|"):
+        line = line[:-1]
+    return [cell.strip() for cell in line.split("|")]
+
+
+def render_list(lines, i, seen):
+    """Renders the list starting at lines[i]; returns (html, next index)."""
+    first = LIST_ITEM.match(lines[i])
+    indent = len(first.group(1))
+    tag = "ol" if first.group(2)[0].isdigit() else "ul"
+    items = []
+    while i < len(lines):
+        match = LIST_ITEM.match(lines[i])
+        if not match or len(match.group(1)) != indent:
+            break
+        body, i = [match.group(3)], i + 1
+        children = ""
+        while i < len(lines) and lines[i].strip():
+            sub = LIST_ITEM.match(lines[i])
+            if sub and len(sub.group(1)) > indent:
+                nested, i = render_list(lines, i, seen)
+                children += nested
+            elif sub or starts_block(lines[i]):
+                break
+            else:
+                body.append(lines[i].strip())
+                i += 1
+        items.append(f"<li>{inline(' '.join(body))}{children}</li>")
+        # A blank line between items keeps the list going.
+        if i + 1 < len(lines) and not lines[i].strip():
+            nxt = LIST_ITEM.match(lines[i + 1])
+            if nxt and len(nxt.group(1)) == indent:
+                i += 1
+    return f"<{tag}>\n" + "\n".join(items) + f"\n</{tag}>\n", i
+
+
+def markdown(text, seen=None):
+    seen = set() if seen is None else seen
+    lines = text.replace("\r\n", "\n").replace("\t", "    ").split("\n")
+    out, i = [], 0
+    while i < len(lines):
+        line = lines[i]
+        if not line.strip():
+            i += 1
+        elif heading := HEADING.match(line):
+            level, title = len(heading.group(1)), heading.group(2)
+            out.append(f'<h{level} id="{slugify(title, seen)}">{inline(title)}</h{level}>\n')
+            i += 1
+        elif fence := FENCE.match(line):
+            body, i = [], i + 1
+            while i < len(lines) and not lines[i].strip().startswith(fence.group(1)):
+                body.append(lines[i])
+                i += 1
+            out.append(f"<pre><code>{esc(chr(10).join(body))}</code></pre>\n")
+            i += 1
+        elif RULE.match(line):
+            out.append("<hr>\n")
+            i += 1
+        elif line.lstrip().startswith(">"):
+            body = []
+            while i < len(lines) and lines[i].lstrip().startswith(">"):
+                body.append(re.sub(r"\A *> ?", "", lines[i]))
+                i += 1
+            out.append(f"<blockquote>\n{markdown(chr(10).join(body), seen)}</blockquote>\n")
+        elif LIST_ITEM.match(line):
+            block, i = render_list(lines, i, seen)
+            out.append(block)
+        elif "|" in line and i + 1 < len(lines) and TABLE_SEP.match(lines[i + 1]):
+            head = "".join(f"<th>{inline(c)}</th>" for c in table_cells(line))
+            rows, i = [], i + 2
+            while i < len(lines) and "|" in lines[i] and lines[i].strip():
+                rows.append("<tr>" + "".join(f"<td>{inline(c)}</td>" for c in table_cells(lines[i])) + "</tr>")
+                i += 1
+            body = "\n".join(rows)
+            out.append(f'<div class="table-wrap"><table>\n<thead><tr>{head}</tr></thead>\n<tbody>\n{body}\n</tbody>\n</table></div>\n')
+        else:
+            para = []
+            while i < len(lines) and lines[i].strip() and not (para and starts_block(lines[i])):
+                para.append(lines[i].strip() if not lines[i].endswith("  ") else lines[i].lstrip())
+                i += 1
+            out.append(f"<p>{inline(chr(10).join(para))}</p>\n")
+    return "".join(out)
+
+
+# --- sources ----------------------------------------------------------------
+
+def read(path):
+    return (ROOT / path).read_text(encoding="utf-8")
+
+
+def load_tokens():
+    return json.loads(read("tokens.json"))
+
+
+def components():
+    return sorted(p.name for p in (ROOT / "components").iterdir() if p.is_dir())
+
+
+def card_meta(name):
+    """Group and height from the export's `<!-- @dsCard group="…" height=… -->`."""
+    first = read(f"components/{name}/preview.html").split("\n", 1)[0]
+    group = re.search(r'@dsCard[^>]*group="([^"]+)"', first)
+    height = re.search(r"@dsCard[^>]*height=(\d+)", first)
+    return (group.group(1) if group else "Overig"), (int(height.group(1)) if height else 400)
+
+
+def blob_files():
+    """design-system.json lists every asset by the blob id the previews use."""
+    manifest = json.loads(read("design-system.json"))
+    files = {}
+    for group, meta in manifest["assetGroups"].items():
+        for name, info in meta["files"].items():
+            files[info["blob"]] = f"{group}/{name}"
+    return files
+
+
+def asset_groups():
+    """Each group in design-system.json's order, its files in the given order
+    and then any other image on disk."""
+    manifest = json.loads(read("design-system.json"))
+    groups, missing = [], []
+    for group in manifest.get("groups") or sorted(manifest["assetGroups"]):
+        meta = manifest["assetGroups"].get(group, {})
+        folder = ROOT / "assets" / group
+        on_disk = sorted(str(p.relative_to(folder)) for p in folder.rglob("*")
+                         if p.is_file() and p.suffix.lower() in (".svg", ".png", ".jpg", ".jpeg"))
+        order = meta.get("order") or sorted(meta.get("files", {}))
+        listed = [f for f in order if f in on_disk]
+        missing += [f"{group}/{f}" for f in order if f not in on_disk]
+        files = listed + [f for f in on_disk if f not in listed]
+        readme = folder / "README.md"
+        groups.append({"name": group, "files": files,
+                       "readme": markdown(readme.read_text(encoding="utf-8")) if readme.is_file() else ""})
+    return groups, missing
+
+
+# --- tokens.css -------------------------------------------------------------
+
+def token_values(tokens):
+    """(name, light, dark) for every custom property; dark is None when equal."""
+    rows = []
+    for group in ("color", "spacing", "radius", "shadow", "layout"):
+        for token in tokens[group]["tokens"]:
+            value = token["value"]
+            light, dark = (value["light"], value["dark"]) if isinstance(value, dict) else (value, None)
+            for v in (light, dark):
+                ok = v is None or (COLOR_VALUE.match(v) if group == "color" else CSS_VALUE.match(str(v)))
+                if not ok:
+                    fail(f"token {token['name']} has a value that is not allowed: {v!r}")
+            if not re.fullmatch(r"[a-z0-9-]+", token["name"]):
+                fail(f"token name not allowed: {token['name']!r}")
+            rows.append((token["name"], str(light), None if dark is None else str(dark)))
+    sans = tokens["type"]["families"]["sans"]
+    if not CSS_VALUE.match(sans):
+        fail(f"font family not allowed: {sans!r}")
+    rows.append(("font-sans", sans, None))
+    return rows
+
+
+def tokens_css(tokens):
+    rows = token_values(tokens)
+    light = "\n".join(f"  --{n}: {v};" for n, v, _ in rows)
+    dark = "\n".join(f"  --{n}: {d};" for n, _, d in rows if d is not None)
+    dark_indented = "\n".join("  " + line for line in dark.split("\n"))
+    return (
+        "/* Gegenereerd door bin/build uit tokens.json; niet met de hand aanpassen.\n"
+        "   Licht is de standaard. Donker volgt de systeeminstelling, tenzij\n"
+        "   <html data-theme=\"light|dark\"> het vastzet. */\n\n"
+        f":root {{\n{light}\n  color-scheme: light;\n}}\n\n"
+        f"[data-theme=\"dark\"] {{\n{dark}\n  color-scheme: dark;\n}}\n\n"
+        "@media (prefers-color-scheme: dark) {\n"
+        f"  :root:not([data-theme=\"light\"]) {{\n{dark_indented}\n    color-scheme: dark;\n  }}\n}}\n"
+    )
+
+
+# --- pages ------------------------------------------------------------------
+
+def page(title, body, prefix="", description=""):
+    meta = f'\n<meta name="description" content="{esc(description)}">' if description else ""
+    nav = [("index.html", "Merkboek"), ("tokens.html", "Tokens"), ("beeld.html", "Beeld"),
+           ("index.html#componenten", "Componenten")]
+    links = "".join(f'<a href="{prefix}{href}">{label}</a>' for href, label in nav)
+    return f"""<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{ROBOTS}{meta}
+<title>{esc(title)}</title>
+<link rel="icon" href="{prefix}assets/Logos/favicon.png">
+<link rel="stylesheet" href="{prefix}fonts/barlow.css">
+<link rel="stylesheet" href="{prefix}tokens.css">
+<link rel="stylesheet" href="{prefix}site.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="site-logo" href="{prefix}index.html" aria-label="{SITE_TITLE}">
+    <picture><source srcset="{prefix}assets/Logos/logo-white.svg" media="(prefers-color-scheme: dark)"><img src="{prefix}assets/Logos/logo.svg" alt="DectDirect" width="160" height="40"></picture>
+    <span>Stijlgids</span>
+  </a>
+  <nav class="site-nav">{links}</nav>
+</header>
+<main class="site-main">
+{body}</main>
+</body>
+</html>
+"""
+
+
+def component_list(names, current=None, prefix=""):
+    by_group = {}
+    for name in names:
+        by_group.setdefault(card_meta(name)[0], []).append(name)
+    out = []
+    for group in sorted(by_group, key=lambda g: (g == "Overig", g)):
+        items = "".join(
+            f'<li><a href="{prefix}{quote(n)}.html"{" aria-current=page" if n == current else ""}>{esc(n)}</a></li>'
+            for n in by_group[group])
+        out.append(f'<div class="component-group"><h3>{esc(group)}</h3><ul class="chips">{items}</ul></div>')
+    return '<div class="component-groups">' + "".join(out) + "</div>\n"
+
+
+def index_page(names):
+    seen = {"componenten", "inhoud"}
+    readme = markdown(read("README.md"), seen)
+    toc = "".join(f'<li><a href="#{a}">{t}</a></li>'
+                  for a, t in re.findall(r'<h2 id="([^"]+)">(.*?)</h2>', readme))
+    body = f"""<h1>Stijlgids</h1>
+<p class="lead">De huisstijl van de DectDirect-winkel: het merkboek, de <a href="tokens.html">tokens</a>, het <a href="beeld.html">beeldmateriaal</a> en de <a href="#componenten">componenten</a>.</p>
+<nav class="toc" aria-labelledby="inhoud"><h2 id="inhoud">Inhoud</h2><ul>{toc}<li><a href="#componenten">Componenten</a></li></ul></nav>
+<article class="prose">
+{readme}</article>
+<section>
+<h2 id="componenten">Componenten</h2>
+{component_list(names, prefix="componenten/")}</section>
+"""
+    return page(SITE_TITLE, body, description="Huisstijl van de DectDirect-winkel: merkboek, tokens, componenten en beeld.")
+
+
+def swatch(value):
+    if not COLOR_VALUE.match(value):
+        fail(f"colour not allowed: {value!r}")
+    return f'<span class="swatch-chip"><span class="swatch" style="background: {esc(value)}"></span><code>{esc(value)}</code></span>'
+
+
+def type_style(style):
+    props = {"font-size": style.get("fontSize"), "line-height": style.get("lineHeight"),
+             "font-weight": style.get("fontWeight"), "letter-spacing": style.get("letterSpacing")}
+    return "; ".join(f"{p}: {v}" for p, v in props.items() if v is not None and CSS_LENGTH.match(str(v)))
+
+
+def tokens_page(tokens):
+    themes = {t["id"]: t["name"] for t in tokens["color"].get("themes", [])}
+    light_name, dark_name = themes.get("light", "Licht"), themes.get("dark", "Donker")
+    cards = []
+    for token in tokens["color"]["tokens"]:
+        value = token["value"]
+        if isinstance(value, dict):
+            values = (f'<dt>{esc(light_name)}</dt><dd>{swatch(value["light"])}</dd>'
+                      f'<dt>{esc(dark_name)}</dt><dd>{swatch(value["dark"])}</dd>')
+        else:
+            values = f'<dt>Beide</dt><dd>{swatch(value)}</dd>'
+        cards.append(f'<li class="token-card" id="{esc(token["name"])}"><h3><code>{esc(token["name"])}</code></h3>'
+                     f'<dl class="token-values">{values}</dl><p>{esc(token.get("usage", ""))}</p></li>')
+    colors = "\n".join(cards)
+
+    type_groups = []
+    for group in tokens["type"]["groups"]:
+        rows = []
+        for style in group["styles"]:
+            spec = " · ".join(str(style[k]) for k in ("fontSize", "lineHeight", "fontWeight", "letterSpacing") if style.get(k) is not None)
+            rows.append(f'<div class="type-row"><div class="type-meta"><code>{esc(style["name"])}</code><small>{esc(spec)}</small></div>'
+                        f'<div><p class="type-sample" style="{esc(type_style(style))}">{esc(style.get("sample", ""))}</p>'
+                        f'<p class="muted">{esc(style.get("usage", ""))}</p></div></div>')
+        note = f'<p class="muted">{esc(group["note"])}</p>' if group.get("note") else ""
+        type_groups.append(f'<section class="type-group"><h3>{esc(group["name"])}</h3>{note}{"".join(rows)}</section>')
+
+    def simple(group, demo):
+        info = tokens[group]
+        rows = []
+        for token in info["tokens"]:
+            rows.append(f'<tr><td><code>{esc(token["name"])}</code></td><td><code>{esc(token["value"])}</code></td>'
+                        f'<td>{demo(token["value"])}</td><td>{esc(token.get("usage", ""))}</td></tr>')
+        note = f'<p class="muted">{esc(info["note"])}</p>' if info.get("note") else ""
+        return (f'{note}<div class="table-wrap"><table class="token-table"><thead><tr><th>Token</th><th>Waarde</th>'
+                f'<th>Voorbeeld</th><th>Gebruik</th></tr></thead><tbody>{"".join(rows)}</tbody></table></div>')
+
+    def bar(v):
+        return f'<span class="demo-bar" style="width: {esc(v)}"></span>' if CSS_LENGTH.match(str(v)) else ""
+
+    def corner(v):
+        return f'<span class="demo-box" style="border-radius: {esc(v)}"></span>' if CSS_LENGTH.match(str(v)) or v == "9999px" else ""
+
+    def shadow(v):
+        return f'<span class="demo-box demo-shadow" style="box-shadow: {esc(v)}"></span>' if CSS_VALUE.match(str(v)) else ""
+
+    def none(v):
+        return ""
+
+    families = ", ".join(f"<code>{esc(v)}</code>" for v in tokens["type"]["families"].values())
+    body = f"""<h1>Tokens</h1>
+<p class="lead">Alles uit <code>tokens.json</code>. Als CSS-variabelen in <a href="tokens.css"><code>tokens.css</code></a>; de namen zijn die van de storefront (<code>--color-brand</code> enz.).</p>
+<nav class="toc"><ul><li><a href="#kleuren">Kleuren</a></li><li><a href="#typografie">Typografie</a></li><li><a href="#ruimte">Ruimte</a></li><li><a href="#hoeken">Hoeken</a></li><li><a href="#schaduw">Schaduw</a></li><li><a href="#layout">Layout</a></li></ul></nav>
+<section>
+<h2 id="kleuren">Kleuren</h2>
+<p class="muted">{esc(light_name)} en {esc(dark_name.lower())} waar het thema de kleur verandert, één waarde waar hij gelijk blijft.</p>
+<ul class="token-grid">
+{colors}
+</ul>
+</section>
+<section>
+<h2 id="typografie">Typografie</h2>
+<p class="muted">Eén familie: {families}.</p>
+{"".join(type_groups)}
+</section>
+<section><h2 id="ruimte">Ruimte</h2>{simple("spacing", bar)}</section>
+<section><h2 id="hoeken">Hoeken</h2>{simple("radius", corner)}</section>
+<section><h2 id="schaduw">Schaduw</h2>{simple("shadow", shadow)}</section>
+<section><h2 id="layout">Layout</h2>{simple("layout", none)}</section>
+"""
+    return page(f"Tokens · {SITE_TITLE}", body)
+
+
+def light_on_dark(file):
+    return "-white" in file or file == "Iconen/recycle.svg"
+
+
+def assets_page(groups):
+    sections = []
+    for group in groups:
+        tiles = []
+        for file in group["files"]:
+            path = f'assets/{quote(group["name"])}/{quote(file)}'
+            dark = " tile-dark" if light_on_dark(f'{group["name"]}/{file}') else ""
+            tiles.append(f'<li><a class="asset-tile" href="{path}"><span class="asset-image{dark}">'
+                         f'<img src="{path}" alt="" loading="lazy"></span><span class="asset-name">{esc(file)}</span></a></li>')
+        anchor = slugify(group["name"], set())
+        sections.append(f'<section><h2 id="{anchor}">{esc(group["name"])}</h2>'
+                        f'<div class="prose">{re.sub(r"<h1[^>]*>.*?</h1>", "", group["readme"])}</div>'
+                        f'<ul class="asset-grid">{"".join(tiles)}</ul></section>')
+    toc = "".join(f'<li><a href="#{slugify(g["name"], set())}">{esc(g["name"])}</a></li>' for g in groups)
+    body = (f'<h1>Beeld</h1>\n<p class="lead">Logo\'s, iconen, betaalmethoden, energielabels en sfeerbeeld uit <code>assets/</code>. '
+            f'Klik een bestand om het los te openen.</p>\n<nav class="toc"><ul>{toc}</ul></nav>\n' + "\n".join(sections) + "\n")
+    return page(f"Beeld · {SITE_TITLE}", body)
+
+
+def preview_html(name, dark, blobs, report):
+    source = read(f"components/{name}/preview.html")
+    out = FONT_LINK.sub("", source)
+
+    def blob(match):
+        report["refs"] += 1
+        file = blobs.get(match.group(1))
+        if file and (ROOT / "assets" / file).is_file():
+            report["resolved"].add(match.group(1))
+            return "../assets/" + quote(file)
+        report["unresolved"].append(f"{name}: /_blob/{match.group(1)}")
+        return match.group(0)
+
+    out = BLOB_REF.sub(blob, out)
+    theme = "dark" if dark else "light"
+    out, count = re.subn(r"<html\b", f'<html data-theme="{theme}"', out, count=1)
+    if not count:
+        fail(f"components/{name}/preview.html has no <html> element")
+    head = (f"{ROBOTS}\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n"
+            '<link rel="stylesheet" href="../fonts/barlow.css">\n'
+            '<link rel="stylesheet" href="../tokens.css">\n'
+            '<link rel="stylesheet" href="../components/bundle.css">\n</head>')
+    out, count = re.subn(r"</head>", lambda _: head, out, count=1)
+    if not count:
+        fail(f"components/{name}/preview.html has no </head>")
+    return out
+
+
+RESIZE_SCRIPT = """<script>
+// The frames are same-origin: grow each one to its content, so nothing is cut
+// off at phone width. Without script the export's card height stays.
+document.querySelectorAll('iframe.preview-frame').forEach(function (frame) {
+  function fit() {
+    try {
+      var win = frame.contentWindow, doc = frame.contentDocument;
+      var scrollbar = win.innerHeight - doc.documentElement.clientHeight;
+      var bottom = 0;
+      Array.prototype.forEach.call(doc.body.children, function (el) {
+        bottom = Math.max(bottom, el.getBoundingClientRect().bottom + win.scrollY + parseFloat(win.getComputedStyle(el).marginBottom || 0));
+      });
+      if (bottom > 0) frame.style.height = Math.ceil(bottom + scrollbar) + 'px';
+    } catch (e) {}
+  }
+  frame.addEventListener('load', function () {
+    fit();
+    try { new ResizeObserver(fit).observe(frame.contentDocument.body); } catch (e) {}
+  });
+});
+</script>
+"""
+
+
+def component_page(name, names):
+    readme_path = ROOT / "components" / name / "README.md"
+    group, height = card_meta(name)
+    if readme_path.is_file():
+        readme = markdown(readme_path.read_text(encoding="utf-8"), {"voorbeeld", "licht", "donker", "andere-componenten"})
+        readme = re.sub(r"<h1[^>]*>.*?</h1>\n?", "", readme, count=1)
+    else:
+        readme = '<p class="muted">Bij dit component hoort geen README; alleen het voorbeeld.</p>\n'
+    frames = []
+    for label, slug, suffix in (("Licht", "licht", ""), ("Donker", "donker", "-donker")):
+        src = f"{quote(name)}-voorbeeld{suffix}.html"
+        frames.append(f'<figure class="preview" id="{slug}"><figcaption><span>{label}</span><a href="{src}">Los openen</a></figcaption>'
+                      f'<iframe class="preview-frame" src="{src}" title="Voorbeeld van {esc(name)}, {label.lower()}" '
+                      f'sandbox="allow-same-origin" referrerpolicy="no-referrer" loading="lazy" style="height: {height}px"></iframe></figure>')
+    body = f"""<p class="crumbs"><a href="../index.html#componenten">Componenten</a> › {esc(group)}</p>
+<h1>{esc(name)}</h1>
+<h2 id="voorbeeld" class="sr">Voorbeeld</h2>
+<div class="previews">
+{chr(10).join(frames)}
+</div>
+<article class="prose">
+{readme}</article>
+<section>
+<h2 id="andere-componenten">Andere componenten</h2>
+{component_list(names, current=name)}</section>
+{RESIZE_SCRIPT}"""
+    return page(f"{name} · {SITE_TITLE}", body, prefix="../")
+
+
+# --- build ------------------------------------------------------------------
+
+GENERATED = ("index.html", "tokens.html", "beeld.html", "tokens.css", "componenten")
+
+
+def build():
+    tokens = load_tokens()
+    names = components()
+    blobs = blob_files()
+    groups, missing_assets = asset_groups()
+    report = {"refs": 0, "resolved": set(), "unresolved": []}
+    files = {
+        "tokens.css": tokens_css(tokens),
+        "index.html": index_page(names),
+        "tokens.html": tokens_page(tokens),
+        "beeld.html": assets_page(groups),
+    }
+    for name in names:
+        files[f"componenten/{name}.html"] = component_page(name, names)
+        files[f"componenten/{name}-voorbeeld.html"] = preview_html(name, False, blobs, report)
+        files[f"componenten/{name}-voorbeeld-donker.html"] = preview_html(name, True, blobs, report)
+    return files, report, missing_assets
+
+
+def main():
+    check = "--check" in sys.argv[1:]
+    files, report, missing_assets = build()
+    if check:
+        on_disk = {str(p.relative_to(ROOT)) for p in (ROOT / "componenten").rglob("*") if p.is_file()} if (ROOT / "componenten").is_dir() else set()
+        on_disk |= {f for f in GENERATED if (ROOT / f).is_file()}
+        differ = sorted(f for f in files if not (ROOT / f).is_file() or (ROOT / f).read_text(encoding="utf-8") != files[f])
+        differ += sorted(on_disk - set(files))
+        if differ:
+            sys.exit("bin/build --check: site is out of date: " + ", ".join(differ))
+    else:
+        shutil.rmtree(ROOT / "componenten", ignore_errors=True)
+        for path, content in files.items():
+            target = ROOT / path
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(content, encoding="utf-8", newline="\n")
+    # Each component's light and dark preview hold the same refs; count them once.
+    refs, status = report["refs"] // 2, "all resolved" if not report["unresolved"] else "NOT ALL RESOLVED"
+    print(f"{len(files)} files; /_blob refs in the previews: {refs}, "
+          f"{len(report['resolved'])} distinct assets, {status}")
+    for ref in sorted(set(report["unresolved"])):
+        print(f"  unresolved {ref}", file=sys.stderr)
+    for asset in missing_assets:
+        print(f"  design-system.json lists {asset}, not in assets/", file=sys.stderr)
+    if report["unresolved"]:
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()

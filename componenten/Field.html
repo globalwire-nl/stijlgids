@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Field · DectDirect stijlgids</title>
+<link rel="icon" href="../assets/Logos/favicon.png">
+<link rel="stylesheet" href="../fonts/barlow.css">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../site.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="site-logo" href="../index.html" aria-label="DectDirect stijlgids">
+    <picture><source srcset="../assets/Logos/logo-white.svg" media="(prefers-color-scheme: dark)"><img src="../assets/Logos/logo.svg" alt="DectDirect" width="160" height="40"></picture>
+    <span>Stijlgids</span>
+  </a>
+  <nav class="site-nav"><a href="../index.html">Merkboek</a><a href="../tokens.html">Tokens</a><a href="../beeld.html">Beeld</a><a href="../index.html#componenten">Componenten</a></nav>
+</header>
+<main class="site-main">
+<p class="crumbs"><a href="../index.html#componenten">Componenten</a> › Formulieren</p>
+<h1>Field</h1>
+<h2 id="voorbeeld" class="sr">Voorbeeld</h2>
+<div class="previews">
+<figure class="preview" id="licht"><figcaption><span>Licht</span><a href="Field-voorbeeld.html">Los openen</a></figcaption><iframe class="preview-frame" src="Field-voorbeeld.html" title="Voorbeeld van Field, licht" sandbox="allow-same-origin" referrerpolicy="no-referrer" loading="lazy" style="height: 360px"></iframe></figure>
+<figure class="preview" id="donker"><figcaption><span>Donker</span><a href="Field-voorbeeld-donker.html">Los openen</a></figcaption><iframe class="preview-frame" src="Field-voorbeeld-donker.html" title="Voorbeeld van Field, donker" sandbox="allow-same-origin" referrerpolicy="no-referrer" loading="lazy" style="height: 360px"></iframe></figure>
+</div>
+<article class="prose">
+<p>Invoer: het zoekveld in de header met zijn resultatenlijst, en de gewone velden van formulieren.</p>
+<h2 id="gebruik">Gebruik</h2>
+<ul>
+<li>Zoekveld: 2px <code>color-brand</code>-rand, <code>radius-md</code>, min. 300px, vergrootglas 20px links in <code>color-neutral-500</code> (draait als spinner tijdens zoeken). Resultaten: <code>color-surface</code>, rand, <code>shadow-2xl</code>, rijen met thumbnail 48px, naam <code>text-sm</code> medium en &quot;merk · sku&quot; <code>text-xs color-neutral-400</code>; de geselecteerde rij (pijltjestoetsen) <code>color-brand-tint</code>.</li>
+<li>Veld: 1px <code>color-neutral-300</code>, <code>radius-md</code>, <code>py-2.5 px-3</code>, 16px. Focus: rand en ring 2px <code>color-violet-500</code>. Label erboven <code>text-sm</code> semibold.</li>
+<li>Fout: rand <code>color-red-500</code> met ring <code>color-red-100</code> (Rails <code>.c-field-has-error</code>: ring-4 red-200), melding <code>text-sm color-red-700</code> met <code>role=&quot;alert&quot;</code>.</li>
+<li>Op de Rails-pagina&#x27;s heet het veld <code>.c-field</code> (min-hoogte 40px, <code>shadow-inner</code>, focus <code>violet-800</code>) met <code>shop-field-border</code> als rand; onder 640px 16px tekst zodat iOS niet inzoomt.</li>
+</ul>
+<h2 id="let-op">Let op</h2>
+<ul>
+<li><code>is-meta</code> in <code>color-neutral-400</code>: 2,6:1 (bron).</li>
+</ul>
+</article>
+<section>
+<h2 id="andere-componenten">Andere componenten</h2>
+<div class="component-groups"><div class="component-group"><h3>Acties</h3><ul class="chips"><li><a href="AddToCart.html">AddToCart</a></li><li><a href="Button.html">Button</a></li><li><a href="QuantityStepper.html">QuantityStepper</a></li></ul></div><div class="component-group"><h3>Afrekenen</h3><ul class="chips"><li><a href="PaymentMethods.html">PaymentMethods</a></li></ul></div><div class="component-group"><h3>Categorie</h3><ul class="chips"><li><a href="CategoryTile.html">CategoryTile</a></li></ul></div><div class="component-group"><h3>Formulieren</h3><ul class="chips"><li><a href="Field.html" aria-current=page>Field</a></li></ul></div><div class="component-group"><h3>Inhoud</h3><ul class="chips"><li><a href="PromoBanner.html">PromoBanner</a></li><li><a href="UspList.html">UspList</a></li></ul></div><div class="component-group"><h3>Navigatie</h3><ul class="chips"><li><a href="Breadcrumbs.html">Breadcrumbs</a></li><li><a href="Footer.html">Footer</a></li><li><a href="Header.html">Header</a></li><li><a href="MainMenu.html">MainMenu</a></li><li><a href="Pagination.html">Pagination</a></li></ul></div><div class="component-group"><h3>Prijs</h3><ul class="chips"><li><a href="LastStockPrice.html">LastStockPrice</a></li><li><a href="Price.html">Price</a></li></ul></div><div class="component-group"><h3>Product</h3><ul class="chips"><li><a href="CompactProductCard.html">CompactProductCard</a></li><li><a href="ProductCard.html">ProductCard</a></li></ul></div><div class="component-group"><h3>Status</h3><ul class="chips"><li><a href="Badge.html">Badge</a></li><li><a href="StockBadge.html">StockBadge</a></li></ul></div><div class="component-group"><h3>Overig</h3><ul class="chips"><li><a href="Cover.html">Cover</a></li></ul></div></div>
+</section>
+<script>
+// The frames are same-origin: grow each one to its content, so nothing is cut
+// off at phone width. Without script the export's card height stays.
+document.querySelectorAll('iframe.preview-frame').forEach(function (frame) {
+  function fit() {
+    try {
+      var win = frame.contentWindow, doc = frame.contentDocument;
+      var scrollbar = win.innerHeight - doc.documentElement.clientHeight;
+      var bottom = 0;
+      Array.prototype.forEach.call(doc.body.children, function (el) {
+        bottom = Math.max(bottom, el.getBoundingClientRect().bottom + win.scrollY + parseFloat(win.getComputedStyle(el).marginBottom || 0));
+      });
+      if (bottom > 0) frame.style.height = Math.ceil(bottom + scrollbar) + 'px';
+    } catch (e) {}
+  }
+  frame.addEventListener('load', function () {
+    fit();
+    try { new ResizeObserver(fit).observe(frame.contentDocument.body); } catch (e) {}
+  });
+});
+</script>
+</main>
+</body>
+</html>

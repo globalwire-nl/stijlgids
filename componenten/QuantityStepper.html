@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>QuantityStepper · DectDirect stijlgids</title>
+<link rel="icon" href="../assets/Logos/favicon.png">
+<link rel="stylesheet" href="../fonts/barlow.css">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../site.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="site-logo" href="../index.html" aria-label="DectDirect stijlgids">
+    <picture><source srcset="../assets/Logos/logo-white.svg" media="(prefers-color-scheme: dark)"><img src="../assets/Logos/logo.svg" alt="DectDirect" width="160" height="40"></picture>
+    <span>Stijlgids</span>
+  </a>
+  <nav class="site-nav"><a href="../index.html">Merkboek</a><a href="../tokens.html">Tokens</a><a href="../beeld.html">Beeld</a><a href="../index.html#componenten">Componenten</a></nav>
+</header>
+<main class="site-main">
+<p class="crumbs"><a href="../index.html#componenten">Componenten</a> › Acties</p>
+<h1>QuantityStepper</h1>
+<h2 id="voorbeeld" class="sr">Voorbeeld</h2>
+<div class="previews">
+<figure class="preview" id="licht"><figcaption><span>Licht</span><a href="QuantityStepper-voorbeeld.html">Los openen</a></figcaption><iframe class="preview-frame" src="QuantityStepper-voorbeeld.html" title="Voorbeeld van QuantityStepper, licht" sandbox="allow-same-origin" referrerpolicy="no-referrer" loading="lazy" style="height: 200px"></iframe></figure>
+<figure class="preview" id="donker"><figcaption><span>Donker</span><a href="QuantityStepper-voorbeeld-donker.html">Los openen</a></figcaption><iframe class="preview-frame" src="QuantityStepper-voorbeeld-donker.html" title="Voorbeeld van QuantityStepper, donker" sandbox="allow-same-origin" referrerpolicy="no-referrer" loading="lazy" style="height: 200px"></iframe></figure>
+</div>
+<article class="prose">
+<p>Aantal-kiezer met min en plus naast de gele koopknop, met daaronder wat het gekozen aantal kost.</p>
+<h2 id="gebruik">Gebruik</h2>
+<ul>
+<li>Alleen bij een product met laatste voorraad tegen een eigen prijs (<code>LastStockBuyButton</code>, branch <code>feature/last-stock-price</code>, nog niet op main). Elders is de koopknop er zonder aantal; de winkelmand (Rails) gebruikt een gewoon getalveld <code>.c-field w-16</code>.</li>
+<li>Rand 2px <code>color-neutral-200</code>, <code>radius-md</code>; knoppen 44px breed, teken 24px in <code>color-neutral-500</code>, hover <code>color-brand</code>. Min is uit bij 1 (opacity .4). Maximum 999.</li>
+<li>De regel eronder (<code>text-sm color-neutral-500</code>): &quot;N stuks: a × prijs + b × prijs = <strong>totaal</strong> (excl. btw)&quot;, totaal in <code>color-neutral-800</code>, excl. in <code>color-neutral-400</code>.</li>
+<li>Hij deelt het aantal met de prijsrijen erboven (LastStockPrice): de rij die het aantal raakt licht op.</li>
+</ul>
+<h2 id="wat-de-gebruiker-levert">Wat de gebruiker levert</h2>
+<p>Het product (sku, prijzen, limited_price). De stepper houdt zelf het aantal.</p>
+<h2 id="let-op">Let op</h2>
+<ul>
+<li>De excl.-btw-tekst in <code>color-neutral-400</code> haalt 2,6:1 (bron).</li>
+</ul>
+</article>
+<section>
+<h2 id="andere-componenten">Andere componenten</h2>
+<div class="component-groups"><div class="component-group"><h3>Acties</h3><ul class="chips"><li><a href="AddToCart.html">AddToCart</a></li><li><a href="Button.html">Button</a></li><li><a href="QuantityStepper.html" aria-current=page>QuantityStepper</a></li></ul></div><div class="component-group"><h3>Afrekenen</h3><ul class="chips"><li><a href="PaymentMethods.html">PaymentMethods</a></li></ul></div><div class="component-group"><h3>Categorie</h3><ul class="chips"><li><a href="CategoryTile.html">CategoryTile</a></li></ul></div><div class="component-group"><h3>Formulieren</h3><ul class="chips"><li><a href="Field.html">Field</a></li></ul></div><div class="component-group"><h3>Inhoud</h3><ul class="chips"><li><a href="PromoBanner.html">PromoBanner</a></li><li><a href="UspList.html">UspList</a></li></ul></div><div class="component-group"><h3>Navigatie</h3><ul class="chips"><li><a href="Breadcrumbs.html">Breadcrumbs</a></li><li><a href="Footer.html">Footer</a></li><li><a href="Header.html">Header</a></li><li><a href="MainMenu.html">MainMenu</a></li><li><a href="Pagination.html">Pagination</a></li></ul></div><div class="component-group"><h3>Prijs</h3><ul class="chips"><li><a href="LastStockPrice.html">LastStockPrice</a></li><li><a href="Price.html">Price</a></li></ul></div><div class="component-group"><h3>Product</h3><ul class="chips"><li><a href="CompactProductCard.html">CompactProductCard</a></li><li><a href="ProductCard.html">ProductCard</a></li></ul></div><div class="component-group"><h3>Status</h3><ul class="chips"><li><a href="Badge.html">Badge</a></li><li><a href="StockBadge.html">StockBadge</a></li></ul></div><div class="component-group"><h3>Overig</h3><ul class="chips"><li><a href="Cover.html">Cover</a></li></ul></div></div>
+</section>
+<script>
+// The frames are same-origin: grow each one to its content, so nothing is cut
+// off at phone width. Without script the export's card height stays.
+document.querySelectorAll('iframe.preview-frame').forEach(function (frame) {
+  function fit() {
+    try {
+      var win = frame.contentWindow, doc = frame.contentDocument;
+      var scrollbar = win.innerHeight - doc.documentElement.clientHeight;
+      var bottom = 0;
+      Array.prototype.forEach.call(doc.body.children, function (el) {
+        bottom = Math.max(bottom, el.getBoundingClientRect().bottom + win.scrollY + parseFloat(win.getComputedStyle(el).marginBottom || 0));
+      });
+      if (bottom > 0) frame.style.height = Math.ceil(bottom + scrollbar) + 'px';
+    } catch (e) {}
+  }
+  frame.addEventListener('load', function () {
+    fit();
+    try { new ResizeObserver(fit).observe(frame.contentDocument.body); } catch (e) {}
+  });
+});
+</script>
+</main>
+</body>
+</html>

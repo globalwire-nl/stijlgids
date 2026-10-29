@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Badge · DectDirect stijlgids</title>
+<link rel="icon" href="../assets/Logos/favicon.png">
+<link rel="stylesheet" href="../fonts/barlow.css">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../site.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="site-logo" href="../index.html" aria-label="DectDirect stijlgids">
+    <picture><source srcset="../assets/Logos/logo-white.svg" media="(prefers-color-scheme: dark)"><img src="../assets/Logos/logo.svg" alt="DectDirect" width="160" height="40"></picture>
+    <span>Stijlgids</span>
+  </a>
+  <nav class="site-nav"><a href="../index.html">Merkboek</a><a href="../tokens.html">Tokens</a><a href="../beeld.html">Beeld</a><a href="../index.html#componenten">Componenten</a></nav>
+</header>
+<main class="site-main">
+<p class="crumbs"><a href="../index.html#componenten">Componenten</a> › Status</p>
+<h1>Badge</h1>
+<h2 id="voorbeeld" class="sr">Voorbeeld</h2>
+<div class="previews">
+<figure class="preview" id="licht"><figcaption><span>Licht</span><a href="Badge-voorbeeld.html">Los openen</a></figcaption><iframe class="preview-frame" src="Badge-voorbeeld.html" title="Voorbeeld van Badge, licht" sandbox="allow-same-origin" referrerpolicy="no-referrer" loading="lazy" style="height: 200px"></iframe></figure>
+<figure class="preview" id="donker"><figcaption><span>Donker</span><a href="Badge-voorbeeld-donker.html">Los openen</a></figcaption><iframe class="preview-frame" src="Badge-voorbeeld-donker.html" title="Voorbeeld van Badge, donker" sandbox="allow-same-origin" referrerpolicy="no-referrer" loading="lazy" style="height: 200px"></iframe></figure>
+</div>
+<article class="prose">
+<p>Violette labels: de Bestseller-badge, het productlabel uit de backoffice en de teller op het winkelwagen-icoon.</p>
+<h2 id="gebruik">Gebruik</h2>
+<ul>
+<li><code>dd-badge</code>: <code>radius-full</code>, <code>color-violet-900</code> met wit, <code>badge</code>-tekststijl, <code>shadow-sm</code>. Bestseller krijgt het <code>starFilled</code>-icoon (12px). Linksboven op de productfoto, onder elkaar.</li>
+<li><code>dd-label</code>: het label op de productpagina (zoals in het Lightspeed-thema): <code>radius-md</code>, 14px, met <code>info</code>-icoon als er uitleg is. De uitleg is een tooltip (<code>color-neutral-100</code>, <code>shadow-md</code>) die ook op tik/focus opent; focus-ring 2px <code>color-yellow-400</code>.</li>
+<li><code>dd-cart-count</code>: 18px rond, 11px bold, rechtsonder op het icoon; speelt <code>animate-fadeIn</code> bij elke toevoeging.</li>
+<li><code>color-violet-900</code> is in beide thema&#x27;s gelijk; wit erop 11:1.</li>
+</ul>
+</article>
+<section>
+<h2 id="andere-componenten">Andere componenten</h2>
+<div class="component-groups"><div class="component-group"><h3>Acties</h3><ul class="chips"><li><a href="AddToCart.html">AddToCart</a></li><li><a href="Button.html">Button</a></li><li><a href="QuantityStepper.html">QuantityStepper</a></li></ul></div><div class="component-group"><h3>Afrekenen</h3><ul class="chips"><li><a href="PaymentMethods.html">PaymentMethods</a></li></ul></div><div class="component-group"><h3>Categorie</h3><ul class="chips"><li><a href="CategoryTile.html">CategoryTile</a></li></ul></div><div class="component-group"><h3>Formulieren</h3><ul class="chips"><li><a href="Field.html">Field</a></li></ul></div><div class="component-group"><h3>Inhoud</h3><ul class="chips"><li><a href="PromoBanner.html">PromoBanner</a></li><li><a href="UspList.html">UspList</a></li></ul></div><div class="component-group"><h3>Navigatie</h3><ul class="chips"><li><a href="Breadcrumbs.html">Breadcrumbs</a></li><li><a href="Footer.html">Footer</a></li><li><a href="Header.html">Header</a></li><li><a href="MainMenu.html">MainMenu</a></li><li><a href="Pagination.html">Pagination</a></li></ul></div><div class="component-group"><h3>Prijs</h3><ul class="chips"><li><a href="LastStockPrice.html">LastStockPrice</a></li><li><a href="Price.html">Price</a></li></ul></div><div class="component-group"><h3>Product</h3><ul class="chips"><li><a href="CompactProductCard.html">CompactProductCard</a></li><li><a href="ProductCard.html">ProductCard</a></li></ul></div><div class="component-group"><h3>Status</h3><ul class="chips"><li><a href="Badge.html" aria-current=page>Badge</a></li><li><a href="StockBadge.html">StockBadge</a></li></ul></div><div class="component-group"><h3>Overig</h3><ul class="chips"><li><a href="Cover.html">Cover</a></li></ul></div></div>
+</section>
+<script>
+// The frames are same-origin: grow each one to its content, so nothing is cut
+// off at phone width. Without script the export's card height stays.
+document.querySelectorAll('iframe.preview-frame').forEach(function (frame) {
+  function fit() {
+    try {
+      var win = frame.contentWindow, doc = frame.contentDocument;
+      var scrollbar = win.innerHeight - doc.documentElement.clientHeight;
+      var bottom = 0;
+      Array.prototype.forEach.call(doc.body.children, function (el) {
+        bottom = Math.max(bottom, el.getBoundingClientRect().bottom + win.scrollY + parseFloat(win.getComputedStyle(el).marginBottom || 0));
+      });
+      if (bottom > 0) frame.style.height = Math.ceil(bottom + scrollbar) + 'px';
+    } catch (e) {}
+  }
+  frame.addEventListener('load', function () {
+    fit();
+    try { new ResizeObserver(fit).observe(frame.contentDocument.body); } catch (e) {}
+  });
+});
+</script>
+</main>
+</body>
+</html>
